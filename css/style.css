@@ -1,0 +1,216 @@
+body {
+  font-family: "Roboto", sans-serif;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+body.lock {
+  overflow: hidden;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.container {
+  padding: 0 calc(50% - 270px);
+  width: 500px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px;
+  height: 265px;
+  background: url("../img/backgr.svg") no-repeat;
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: -80px;
+}
+.header .logo {
+  color: #ffffff;
+  font-size: 40px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.header .header__list {
+  display: flex;
+}
+.header .header__burger {
+  display: block;
+  position: relative;
+  width: 30px;
+  height: 20px;
+  z-index: 3;
+  margin: 0 30px;
+}
+.header .header__burger span {
+  position: absolute;
+  background-color: #FFFFFF;
+  left: 0;
+  height: 3px;
+  top: 9px;
+  width: 100%;
+  transition: all 0.3s ease 0s;
+}
+.header .header__burger::before,
+.header .header__burger::after {
+  content: "";
+  background-color: #FFFFFF;
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  left: 0;
+  transition: all 0.3s ease 0s;
+}
+.header .header__burger::before {
+  top: 0;
+}
+.header .header__burger::after {
+  bottom: 0;
+}
+.header .header__menu {
+  position: fixed;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f5c932;
+  background-image: linear-gradient(to top, #fc686f 0%, #ff934c 100%);
+  overflow: auto;
+  transition: all 0.3s ease 0s;
+}
+.header .header__menu.active {
+  top: 0;
+  padding-top: 110px;
+}
+.header .menu {
+  flex-direction: column;
+}
+.header .menu .menu__list, .header .menu .menu__list:last-child {
+  text-align: left;
+  margin-bottom: 68px;
+  width: 50%;
+}
+.header .header__burger.active span {
+  transform: scale(0);
+}
+.header .header__burger.active::before {
+  transform: rotate(45deg);
+  top: 8px;
+}
+.header .header__burger.active::after {
+  transform: rotate(-45deg);
+  bottom: 9px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 14px;
+}
+.main .heading {
+  color: #000000;
+  font-size: 40px;
+  font-weight: 400;
+  margin-bottom: 64px;
+}
+.main .select {
+  width: 361px;
+  height: 61px;
+  border-radius: 21px 21px 0 0;
+  border: 1px solid #676767;
+  color: #000000;
+  font-size: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFFFFF;
+}
+.main .radio_group {
+  display: flex;
+  flex-direction: column;
+  border-radius: 21px;
+  background-color: #f5c932;
+  background-image: linear-gradient(to top, #5cb88d 0%, #69b593 100%);
+}
+.main .radio_group.active {
+  top: 0;
+}
+.main .radio_group.hidden {
+  display: none;
+}
+.main .form_radio_group input[type=radio] {
+  display: none;
+}
+.main .form_radio_group label {
+  cursor: pointer;
+  user-select: none;
+  width: 361px;
+  height: 61px;
+  border: 1px solid #676767;
+  color: #000000;
+  font-size: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main .form_radio_group .form_radio_group-item:first-child label {
+  border-radius: 21px 21px 0 0;
+}
+.main .form_radio_group .form_radio_group-item:last-child label {
+  border-radius: 0 0 21px 21px;
+  border-right: 1px solid #999;
+}
+.main .form_radio_group input[type=radio]:checked + label {
+  background-image: linear-gradient(to top, #37a56d 0%, #1f8360 100%);
+}
+.main .form_radio_group label:hover {
+  color: #666;
+}
+.main .submit {
+  margin-top: 40px;
+  color: #fefefe;
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  width: 361px;
+  height: 61px;
+  border-radius: 21px;
+  background-image: linear-gradient(to top, #18a86b 0%, #2fb383 100%);
+}
+
+.ingredients {
+  margin: 14px 40px;
+  color: #434343;
+}
+.ingredients .recipe {
+  list-style-image: url("../img/list-style.png");
+}
+.ingredients .recipe hr {
+  margin-left: -22px;
+  width: 361px;
+  height: 1px;
+  background-color: #b9b9b9;
+}
+.ingredients .recipe .recipe__list {
+  color: #434343;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.footer {
+  margin-top: 85px;
+}
+
+/*# sourceMappingURL=style.css.map */
