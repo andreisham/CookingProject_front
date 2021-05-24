@@ -11,7 +11,7 @@
       <nav class="header__menu nav">
         <ul class="menu">
           <li class="menu__list" v-for="link in links" :key="link">
-            <a :href="link.href" class="menu__link">{{ link.title }}</a>
+            <router-link :to="{name: link.page}" class="menu__link">{{ link.title }}</router-link>
           </li>
         </ul>
       </nav>
@@ -27,12 +27,12 @@ export default {
     return {
       links: [
         {
+          page: 'home',
           title: "Главная",
-          href: "../../../../index.html",
         },
         {
+          page: 'meal',
           title: "Случайный рецепт",
-          href: "../../../../mealPage.html",
         }
       ],
     }
