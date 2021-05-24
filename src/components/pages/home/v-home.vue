@@ -1,37 +1,92 @@
 <template>
   <div class="v-home">
+
+    <v-ingredients-modal
+      v-if="isIngredientsVisible"
+      @closeIngredients="closeIngredients"
+    >
+
+      <v-ingredient-item
+          v-for="ingredient in INGREDIENTS.meals"
+          :key="ingredient.idIngredient"
+          :ingredient_data="ingredient"
+      />
+
+    </v-ingredients-modal>
+
     <main class="main">
       <h1 class="heading">What Should I Cook?</h1>
-      <form action="" class="form_radio_group">
+      <form action="#" class="form_radio_group">
 
         <div class="radio_group">
           <div class="select">select ingredients</div>
-          <div class="form_radio_group-item">
-            <input id="radio-1" type="radio" name="radio" value="Говядина" checked>
-            <label for="radio-1">Говядина</label>
-          </div>
-          <div class="form_radio_group-item">
-            <input id="radio-2" type="radio" name="radio" value="Свинина">
-            <label for="radio-2">Свинина</label>
-          </div>
-          <div class="form_radio_group-item">
-            <input id="radio-3" type="radio" name="radio" value="Лосось">
-            <label for="radio-3">Лосось</label>
-          </div>
-          <div class="form_radio_group-item">
-            <input id="radio-4" type="radio" name="radio" value="Курица">
-            <label for="radio-4">Курица</label>
-          </div>
+
+<!--          <div class="form_radio_group-item">-->
+<!--            <input id="radio-1" type="radio" name="radio" value="Говядина" checked>-->
+<!--            <label for="radio-1">Говядина</label>-->
+<!--          </div>-->
+<!--          <div class="form_radio_group-item">-->
+<!--            <input id="radio-2" type="radio" name="radio" value="Свинина">-->
+<!--            <label for="radio-2">Свинина</label>-->
+<!--          </div>-->
+<!--          <div class="form_radio_group-item">-->
+<!--            <input id="radio-3" type="radio" name="radio" value="Лосось">-->
+<!--            <label for="radio-3">Лосось</label>-->
+<!--          </div>-->
+<!--          <div class="form_radio_group-item">-->
+<!--            <input id="radio-4" type="radio" name="radio" value="Курица">-->
+<!--            <label for="radio-4">Курица</label>-->
+<!--          </div>-->
+
         </div>
-        <button class="submit" type="submit">show</button>
+        <button class="submit" type="submit" @click.prevent="showIngredients">show</button>
       </form>
     </main>
   </div>
 </template>
 
 <script>
+import vIngredientItem from './v-ingredient-item'
+import vIngredientsModal from './v-ingredients-modal';
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
-  name: "v-home"
+  name: "v-home",
+
+  components: {
+    vIngredientItem,
+    vIngredientsModal,
+  },
+
+  data() {
+    return {
+      isIngredientsVisible: false,
+    }
+  },
+
+  computed: {
+    ...mapGetters([
+      'INGREDIENTS'
+    ]),
+  },
+
+  methods: {
+    showIngredients() {
+      this.isIngredientsVisible = true;
+    },
+
+    closeIngredients() {
+      this.isIngredientsVisible = false;
+    },
+
+    ...mapActions([
+        'GET_INGREDIENTS_FROM_API',
+    ]),
+  },
+
+  mounted() {
+    this.GET_INGREDIENTS_FROM_API();
+  }
 }
 </script>
 
@@ -50,7 +105,7 @@ export default {
   .select {
     width: 361px;
     height: 61px;
-    border-radius: 21px 21px 0 0;
+    border-radius: 21px;
     border: 1px solid #676767;
     color: #000000;
     font-size: 28px;

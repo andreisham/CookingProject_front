@@ -1,16 +1,20 @@
 <template>
   <div class="v-header">
     <header class="header">
-      <span class="logo">WSIC</span>
-      <div
-          class="header__burger"
-          @click="toggleBurger"
-      >
-        <span></span>
-      </div>
+        <span class="logo">WSIC</span>
+        <div
+            class="header__burger"
+            @click="toggleBurger"
+        >
+          <span></span>
+        </div>
       <nav class="header__menu nav">
         <ul class="menu">
-          <li class="menu__list" v-for="link in links" :key="link">
+          <li class="menu__list"
+              v-for="link in links"
+              :key="link"
+              :click="toggleBurger"
+          >
             <router-link :to="{name: link.page}" class="menu__link">{{ link.title }}</router-link>
           </li>
         </ul>
@@ -64,6 +68,7 @@ export default {
   background-size: cover;
   background-position-x: center;
   background-position-y: -80px;
+
   .logo {
     color: #ffffff;
     font-size: 40px;
@@ -118,6 +123,11 @@ export default {
     background-image: linear-gradient(to top, #fc686f 0%, #ff934c 100%);
     overflow: auto;
     transition: all 0.3s ease 0s;
+
+    // added style
+    display: flex;
+    justify-content: center;
+    z-index: 2;
   }
   .header__menu.active{
     top: 0;
@@ -125,6 +135,8 @@ export default {
   }
   .menu {
     flex-direction: column;
+    // added styles
+    width: 500px;
     .menu__list, .menu__list:last-child {
       text-align: left;
       margin-bottom: 68px;
