@@ -1,20 +1,22 @@
 <template>
   <div class="v-main-wrapper">
     <div class="container">
-
       <v-header></v-header>
 
+      <v-footer></v-footer>
     </div>
   </div>
 </template>
 
 <script>
 import vHeader from './layout/header/v-header';
+import vFooter from './layout/footer/v-footer';
 
 export default {
   name: "v-main-wrapper",
   components: {
     vHeader,
+    vFooter,
   }
 }
 </script>
