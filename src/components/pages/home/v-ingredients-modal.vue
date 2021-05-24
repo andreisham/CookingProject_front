@@ -1,21 +1,22 @@
 <template>
   <div class="v-ingredients-modal">
-    <div class="v-ingredients-modal__content">
-      <div class="v-ingredients-modal__header">
-      <span>
-        <i class="material-icons v-ingredients-modal__close"
-            @click="closeIngredients"
-        >close</i>
-      </span>
+      <div class="v-ingredients-modal__content">
+        <div class="v-ingredients-modal__header">
+        <span>
+          <i class="material-icons v-ingredients-modal__close"
+              @click="closeIngredients"
+          >close</i>
+        </span>
+        </div>
+        <div class="v-ingredients-modal__items">
+          <slot></slot>
+        </div>
       </div>
-      <div class="v-ingredients-modal__items">
-        <slot></slot>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
+
 export default {
   name: "v-ingredients-modal",
   methods: {
@@ -47,6 +48,7 @@ export default {
       background-color: #ffffff;
       box-shadow: 0 0 10px 0 #e7e7e7;
       padding: 10px;
+      transition: opacity .5s;
     }
 
     &__header {

@@ -12,10 +12,10 @@
         <ul class="menu">
           <li class="menu__list"
               v-for="link in links"
-              :key="link"
-              :click="toggleBurger"
+              @click="toggleBurger"
+              :key="link.page"
           >
-            <router-link :to="{name: link.page}" class="menu__link">{{ link.title }}</router-link>
+            <router-link class="menu__link" :to="{name: link.page}">{{ link.title }}</router-link>
           </li>
         </ul>
       </nav>
@@ -25,8 +25,6 @@
 
 <script>
 export default {
-  name: "v-header",
-
   data() {
     return {
       links: [
@@ -44,6 +42,7 @@ export default {
 
   methods: {
     toggleBurger() {
+      console.log('click')
       let burger = document.querySelector('.header__burger');
       let menu = document.querySelector('.header__menu');
       let body = document.querySelector('body');
@@ -70,6 +69,7 @@ export default {
   background-position-y: -80px;
 
   .logo {
+    height: 50px;
     color: #ffffff;
     font-size: 40px;
     font-weight: 400;

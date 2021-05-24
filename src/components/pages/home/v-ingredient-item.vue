@@ -1,9 +1,11 @@
 <template>
-  <div class="v-ingredient-item">
+  <router-link class="v-ingredient-item"
+    :to="{name: 'meals', params: { name: ingredient_data.strIngredient }}"
+  >
     <p class="v-ingredient-item__name">
       {{ ingredient_data.strIngredient }}
     </p>
-  </div>
+  </router-link>
 </template>
 
 <script>

@@ -1,18 +1,15 @@
 <template>
   <div class="v-home">
-
-    <v-ingredients-modal
-      v-if="isIngredientsVisible"
-      @closeIngredients="closeIngredients"
-    >
-
-      <v-ingredient-item
-          v-for="ingredient in INGREDIENTS.meals"
-          :key="ingredient.idIngredient"
-          :ingredient_data="ingredient"
-      />
-
-    </v-ingredients-modal>
+        <v-ingredients-modal
+          v-if="isIngredientsVisible"
+          @closeIngredients="closeIngredients"
+        >
+        <v-ingredient-item
+            v-for="ingredient in INGREDIENTS.meals"
+            :key="ingredient.idIngredient"
+            :ingredient_data="ingredient"
+        />
+        </v-ingredients-modal>
 
     <main class="main">
       <h1 class="heading">What Should I Cook?</h1>
@@ -66,7 +63,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      'INGREDIENTS'
+      'INGREDIENTS',
     ]),
   },
 
@@ -80,12 +77,12 @@ export default {
     },
 
     ...mapActions([
-        'GET_INGREDIENTS_FROM_API',
+        'GET_INGREDIENTS',
     ]),
   },
 
   mounted() {
-    this.GET_INGREDIENTS_FROM_API();
+    this.GET_INGREDIENTS();
   }
 }
 </script>

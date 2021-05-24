@@ -18,8 +18,12 @@ let router = new Router({
             path: '/meal',
             name: 'meal',
             component: vMeal,
-            props: true,
         },
+        {
+            path: '/meals/:name',
+            name: 'meals',
+            component: vMeal,
+        }
     ]
 });
 
