@@ -1,0 +1,20 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+body.lock {
+  overflow: hidden
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  text-decoration: none;
+}
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
