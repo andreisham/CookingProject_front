@@ -1,11 +1,11 @@
 <template>
-  <div class="v-ingredients-item">
-    <router-link :to="{name: 'meals', params: { id: ingredientData.id }}">
-      <p class="v-ingredients-item__name">
-        {{ ingredientData.name | ucfirst}}
-      </p>
-    </router-link>
-  </div>
+  <router-link :to="{name: 'meals', params: { id: ingredientData.id }}">
+    <div class="v-ingredients-item">
+        <p class="v-ingredients-item__name">
+          {{ ingredientData.name | ucfirst}}
+        </p>
+    </div>
+  </router-link>
 </template>
 
 <script>

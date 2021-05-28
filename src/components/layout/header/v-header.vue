@@ -1,23 +1,32 @@
 <template>
   <div class="v-header">
     <header class="header">
-      <span class="logo">WSIC</span>
+      <router-link :to="{name: 'home'}">
+        <span class="logo">WSIC</span>
+      </router-link>
       <div
           class="header__burger"
-          @click="toggleBurger"
+          :class="{ active: isMenuOpen }"
+          @click="showMenu"
       >
         <span></span>
       </div>
 
-      <nav class="header__menu nav">
+      <nav
+          class="header__menu nav"
+          :class="{active: isMenuOpen }"
+      >
         <ul class="menu">
           <li
               class="menu__list"
+              @click="showMenu"
               v-for="link in links"
-              @click="toggleBurger"
               :key="link.page"
           >
-            <router-link class="menu__link" :to="{name: link.page}">{{ link.title }}</router-link>
+            <router-link
+                class="menu__link"
+                :to="{name: link.page}"
+            >{{ link.title }}</router-link>
           </li>
         </ul>
       </nav>
@@ -30,6 +39,7 @@
 export default {
   data() {
     return {
+      isMenuOpen: false,
       links: [
         {
           page: 'home',
@@ -44,17 +54,8 @@ export default {
   },
 
   methods: {
-    toggleBurger() {
-      console.log('click')
-      let burger = document.querySelector('.header__burger');
-      let menu = document.querySelector('.header__menu');
-      let body = document.querySelector('body');
-      let logo = document.querySelector('.logo');
-
-      burger.classList.toggle('active');
-      menu.classList.toggle('active');
-      body.classList.toggle('lock'); //запрет скрола при открытом бургере
-      logo.style.zIndex = '100';
+    showMenu() {
+      this.isMenuOpen = !this.isMenuOpen;
     },
 
     showIngredients() {
@@ -81,6 +82,7 @@ export default {
     font-size: 40px;
     font-weight: 400;
     text-transform: uppercase;
+    z-index: 100;
   }
 
   .header__list {

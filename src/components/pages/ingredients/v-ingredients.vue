@@ -55,7 +55,7 @@ export default {
     if (this.INGREDIENTS.length === 0) {
       this.GET_INGREDIENTS_FROM_API();
     }
-  }
+  },
 }
 </script>
 

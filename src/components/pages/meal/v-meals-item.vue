@@ -1,26 +1,37 @@
 <template>
-  <div class="v-meal-recipe">
-    <h1 class="heading">{{ meal_data.strMeal }}</h1>
-    <h2>Ингредиенты</h2>
+  <div class="v-meals-item">
+    <h2 class="heading">{{ mealData.name }}</h2>
+
+    <img
+        class="v-meals-item__img"
+        :src="mealData.api_img"
+        alt="img"
+    >
+
+    <h3>Ингредиенты:</h3>
     <ul class="recipe">
       <li class="recipe__list"
-          v-for="item in meal_data.ingredients"
-          :key="item.id"
+          v-for="(item, index) in mealData.components_measure"
+          :key="index"
       >
         <img src="../../../assets/img/list-style.png" class="recipe__img" alt="img">
-        {{ item.name }} - {{ item.measure }}
+        {{ index }} - {{ item }}
       </li>
     </ul>
+
+    <h3>Рецепт приготовления:</h3>
+    <p>{{ mealData.instruction }}</p>
+
   </div>
 </template>
 
 <script>
 
 export default {
-  name: "v-meal-recipe",
+  name: "v-meals-item",
 
   props: {
-    meal_data: {
+    mealData: {
       type: Object,
       default() {
         return {};
@@ -28,27 +39,36 @@ export default {
     }
   },
 
+  mounted() {
+    this.$set(this.mealData, 'components_measure', JSON.parse(this.mealData.components_measure));
+  }
+
 }
 </script>
 
 <style lang="scss">
-.v-meal-recipe {
+.v-meals-item {
   margin-bottom: 30px;
+
+  &__img {
+    width: 300px;
+  }
 }
 
 .recipe {
   padding-left: 0;
+
   .recipe__list {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    height: 60px;
-    width: 400px;
+    height: 50px;
     color: #434343;
     font-size: 20px;
     font-weight: 400;
     border-bottom: .5px solid lightgray;
   }
+
   &__img {
     margin-right: 10px;
   }

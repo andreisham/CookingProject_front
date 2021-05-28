@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import vHome from '../components/pages/home/v-home';
-import vMeal from '../components/pages/meal/v-meal';
+import vMeals from '../components/pages/meal/v-meals';
 import vIngredients from '../components/pages/ingredients/v-ingredients';
 
 Vue.use(Router);
@@ -22,13 +22,13 @@ let router = new Router({
         },
         {
             path: '/meal',
-            name: 'meals',
-            component: vMeal,
+            name: 'meal',
+            component: vMeals,
         },
         {
             path: '/meals/:id',
             name: 'meals',
-            component: vMeal,
+            component: vMeals,
         }
     ]
 });

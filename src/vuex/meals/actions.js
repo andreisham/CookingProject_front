@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export default {
-    GET_INGREDIENTS_FROM_API({ commit }) {
-        return axios('http://localhost:8000/api/ingredients', {
+    GET_MEALS_FROM_API_BY_INGREDIENT_ID({ commit }, ingredientId) {
+        return axios('http://localhost:8000/api/meals?ingredient=' + ingredientId, {
             method: 'GET',
         })
             .then(response => {
-                commit('SET_INGREDIENTS_TO_STATE', response.data);
+                commit('SET_MEALS_TO_STATE', response.data);
                 return response;
             })
             .catch(error => {
