@@ -1,16 +1,18 @@
 <template>
   <div class="v-header">
     <header class="header">
-        <span class="logo">WSIC</span>
-        <div
-            class="header__burger"
-            @click="toggleBurger"
-        >
-          <span></span>
-        </div>
+      <span class="logo">WSIC</span>
+      <div
+          class="header__burger"
+          @click="toggleBurger"
+      >
+        <span></span>
+      </div>
+
       <nav class="header__menu nav">
         <ul class="menu">
-          <li class="menu__list"
+          <li
+              class="menu__list"
               v-for="link in links"
               @click="toggleBurger"
               :key="link.page"
@@ -19,6 +21,7 @@
           </li>
         </ul>
       </nav>
+
     </header>
   </div>
 </template>
@@ -30,12 +33,12 @@ export default {
       links: [
         {
           page: 'home',
-          title: "Главная",
+          title: 'Главная',
         },
         {
-          page: 'meal',
-          title: "Случайный рецепт",
-        }
+          page: 'ingredients',
+          title: 'Ингредиенты',
+        },
       ],
     }
   },
@@ -52,6 +55,10 @@ export default {
       menu.classList.toggle('active');
       body.classList.toggle('lock'); //запрет скрола при открытом бургере
       logo.style.zIndex = '100';
+    },
+
+    showIngredients() {
+      this.$emit('showIngredients');
     }
   }
 }
@@ -75,12 +82,13 @@ export default {
     font-weight: 400;
     text-transform: uppercase;
   }
+
   .header__list {
     display: flex;
   }
 
   //burger
-  .header__burger{
+  .header__burger {
     display: block;
     position: relative;
     width: 30px;
@@ -88,7 +96,8 @@ export default {
     z-index: 3;
     margin: 0 30px;
   }
-  .header__burger span{
+
+  .header__burger span {
     position: absolute;
     background-color: #FFFFFF;
     left: 0;
@@ -97,8 +106,9 @@ export default {
     width: 100%;
     transition: all 0.3s ease 0s;
   }
+
   .header__burger::before,
-  .header__burger::after{
+  .header__burger::after {
     content: "";
     background-color: #FFFFFF;
     position: absolute;
@@ -107,12 +117,15 @@ export default {
     left: 0;
     transition: all 0.3s ease 0s;
   }
-  .header__burger::before{
+
+  .header__burger::before {
     top: 0;
   }
-  .header__burger::after{
+
+  .header__burger::after {
     bottom: 0;
   }
+
   .header__menu {
     position: fixed;
     top: -100%;
@@ -129,28 +142,34 @@ export default {
     justify-content: center;
     z-index: 2;
   }
-  .header__menu.active{
+
+  .header__menu.active {
     top: 0;
     padding-top: 110px;
   }
+
   .menu {
     flex-direction: column;
     // added styles
     width: 500px;
+
     .menu__list, .menu__list:last-child {
       text-align: left;
       margin-bottom: 68px;
       width: 50%;
     }
   }
-  .header__burger.active span{
+
+  .header__burger.active span {
     transform: scale(0);
   }
-  .header__burger.active::before{
+
+  .header__burger.active::before {
     transform: rotate(45deg);
     top: 8px;
   }
-  .header__burger.active::after{
+
+  .header__burger.active::after {
     transform: rotate(-45deg);
     bottom: 9px;
   }

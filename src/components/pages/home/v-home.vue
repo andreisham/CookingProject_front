@@ -1,15 +1,6 @@
 <template>
   <div class="v-home">
-        <v-ingredients-modal
-          v-if="isIngredientsVisible"
-          @closeIngredients="closeIngredients"
-        >
-        <v-ingredient-item
-            v-for="ingredient in INGREDIENTS.meals"
-            :key="ingredient.idIngredient"
-            :ingredient_data="ingredient"
-        />
-        </v-ingredients-modal>
+    <v-header></v-header>
 
     <main class="main">
       <h1 class="heading">What Should I Cook?</h1>
@@ -17,48 +8,36 @@
 
         <div class="radio_group">
           <div class="select">select ingredients</div>
-
-<!--          <div class="form_radio_group-item">-->
-<!--            <input id="radio-1" type="radio" name="radio" value="Говядина" checked>-->
-<!--            <label for="radio-1">Говядина</label>-->
-<!--          </div>-->
-<!--          <div class="form_radio_group-item">-->
-<!--            <input id="radio-2" type="radio" name="radio" value="Свинина">-->
-<!--            <label for="radio-2">Свинина</label>-->
-<!--          </div>-->
-<!--          <div class="form_radio_group-item">-->
-<!--            <input id="radio-3" type="radio" name="radio" value="Лосось">-->
-<!--            <label for="radio-3">Лосось</label>-->
-<!--          </div>-->
-<!--          <div class="form_radio_group-item">-->
-<!--            <input id="radio-4" type="radio" name="radio" value="Курица">-->
-<!--            <label for="radio-4">Курица</label>-->
-<!--          </div>-->
-
         </div>
-        <button class="submit" type="submit" @click.prevent="showIngredients">show</button>
+
+        <button
+            class="submit"
+            type="submit"
+            @click.prevent="showMealsRecipes"
+        >show</button>
       </form>
     </main>
+
+    <v-footer></v-footer>
   </div>
 </template>
 
 <script>
-import vIngredientItem from './v-ingredient-item'
-import vIngredientsModal from './v-ingredients-modal';
-import { mapActions, mapGetters } from 'vuex';
+import vHeader from '../../layout/header/v-header';
+import vFooter from '../../layout/footer/v-footer';
+
+import {mapActions, mapGetters} from 'vuex';
 
 export default {
   name: "v-home",
 
   components: {
-    vIngredientItem,
-    vIngredientsModal,
+    vHeader,
+    vFooter,
   },
 
   data() {
-    return {
-      isIngredientsVisible: false,
-    }
+    return {}
   },
 
   computed: {
@@ -68,21 +47,17 @@ export default {
   },
 
   methods: {
-    showIngredients() {
-      this.isIngredientsVisible = true;
-    },
-
-    closeIngredients() {
-      this.isIngredientsVisible = false;
-    },
-
     ...mapActions([
-        'GET_INGREDIENTS',
+      'GET_INGREDIENTS_FROM_API',
     ]),
+
+    showMealsRecipes() {
+      this.$router.push('/meal');
+    }
   },
 
   mounted() {
-    this.GET_INGREDIENTS();
+    this.GET_INGREDIENTS_FROM_API();
   }
 }
 </script>
@@ -93,12 +68,14 @@ export default {
   flex-direction: column;
   align-items: center;
   margin-top: 14px;
+
   .heading {
     color: #000000;
     font-size: 40px;
     font-weight: 400;
     margin-bottom: 64px;
   }
+
   .select {
     width: 361px;
     height: 61px;
@@ -111,6 +88,7 @@ export default {
     align-items: center;
     background-color: #FFFFFF;
   }
+
   .radio_group {
     display: flex;
     flex-direction: column;
@@ -118,15 +96,19 @@ export default {
     background-color: #f5c932;
     background-image: linear-gradient(to top, #5cb88d 0%, #69b593 100%);
   }
+
   .radio_group.active {
     top: 0;
   }
+
   .radio_group.hidden {
     display: none;
   }
+
   .form_radio_group input[type=radio] {
     display: none;
   }
+
   .form_radio_group label {
     cursor: pointer;
     user-select: none;
@@ -143,6 +125,7 @@ export default {
   .form_radio_group .form_radio_group-item:first-child label {
     border-radius: 21px 21px 0 0;;
   }
+
   .form_radio_group .form_radio_group-item:last-child label {
     border-radius: 0 0 21px 21px;
     border-right: 1px solid #999;
@@ -155,6 +138,7 @@ export default {
   .form_radio_group label:hover {
     color: #666;
   }
+
   .submit {
     margin-top: 40px;
     color: #fefefe;
