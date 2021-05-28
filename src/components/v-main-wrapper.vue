@@ -1,23 +1,19 @@
 <template>
   <div class="v-main-wrapper">
     <div class="container">
-      <v-header></v-header>
-      <router-view></router-view>
-      <v-footer></v-footer>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </div>
   </div>
 </template>
 
 <script>
-import vHeader from './layout/header/v-header';
-import vFooter from './layout/footer/v-footer';
+
 
 export default {
   name: "v-main-wrapper",
-  components: {
-    vHeader,
-    vFooter,
-  }
+  components: {}
 }
 </script>
 

@@ -1,24 +1,36 @@
 <template>
   <div class="v-header">
     <header class="header">
-        <span class="logo">WSIC</span>
-        <div
-            class="header__burger"
-            @click="toggleBurger"
-        >
-          <span></span>
-        </div>
-      <nav class="header__menu nav">
+      <router-link :to="{name: 'home'}">
+        <div class="header__logo">WSIC</div>
+      </router-link>
+      <div
+          class="header__burger"
+          :class="{ active: isMenuOpen }"
+          @click="showMenu"
+      >
+        <span></span>
+      </div>
+
+      <nav
+          class="header__menu nav"
+          :class="{active: isMenuOpen }"
+      >
         <ul class="menu">
-          <li class="menu__list"
+          <li
+              class="menu__list"
+              @click="showMenu"
               v-for="link in links"
-              @click="toggleBurger"
               :key="link.page"
           >
-            <router-link class="menu__link" :to="{name: link.page}">{{ link.title }}</router-link>
+            <router-link
+                class="menu__link"
+                :to="{name: link.page}"
+            >{{ link.title }}</router-link>
           </li>
         </ul>
       </nav>
+
     </header>
   </div>
 </template>
@@ -27,31 +39,31 @@
 export default {
   data() {
     return {
+      isMenuOpen: false,
       links: [
         {
           page: 'home',
-          title: "Главная",
+          title: 'Главная',
+        },
+        {
+          page: 'ingredients',
+          title: 'Ингредиенты',
         },
         {
           page: 'meal',
-          title: "Случайный рецепт",
-        }
+          title: 'Случайный рецепт',
+        },
       ],
     }
   },
 
   methods: {
-    toggleBurger() {
-      console.log('click')
-      let burger = document.querySelector('.header__burger');
-      let menu = document.querySelector('.header__menu');
-      let body = document.querySelector('body');
-      let logo = document.querySelector('.logo');
+    showMenu() {
+      this.isMenuOpen = !this.isMenuOpen;
+    },
 
-      burger.classList.toggle('active');
-      menu.classList.toggle('active');
-      body.classList.toggle('lock'); //запрет скрола при открытом бургере
-      logo.style.zIndex = '100';
+    showIngredients() {
+      this.$emit('showIngredients');
     }
   }
 }
@@ -68,27 +80,32 @@ export default {
   background-position-x: center;
   background-position-y: -80px;
 
-  .logo {
+  &__logo {
+    position: relative;
     height: 50px;
     color: #ffffff;
     font-size: 40px;
     font-weight: 400;
     text-transform: uppercase;
+    z-index: 30;
   }
+
   .header__list {
     display: flex;
   }
 
   //burger
-  .header__burger{
+  .header__burger {
     display: block;
     position: relative;
     width: 30px;
     height: 20px;
-    z-index: 3;
+    z-index: 30;
     margin: 0 30px;
+    cursor: pointer;
   }
-  .header__burger span{
+
+  .header__burger span {
     position: absolute;
     background-color: #FFFFFF;
     left: 0;
@@ -97,8 +114,9 @@ export default {
     width: 100%;
     transition: all 0.3s ease 0s;
   }
+
   .header__burger::before,
-  .header__burger::after{
+  .header__burger::after {
     content: "";
     background-color: #FFFFFF;
     position: absolute;
@@ -107,12 +125,15 @@ export default {
     left: 0;
     transition: all 0.3s ease 0s;
   }
-  .header__burger::before{
+
+  .header__burger::before {
     top: 0;
   }
-  .header__burger::after{
+
+  .header__burger::after {
     bottom: 0;
   }
+
   .header__menu {
     position: fixed;
     top: -100%;
@@ -127,30 +148,40 @@ export default {
     // added style
     display: flex;
     justify-content: center;
-    z-index: 2;
+    z-index: 20;
   }
-  .header__menu.active{
+
+  .header__menu.active {
     top: 0;
     padding-top: 110px;
   }
+
   .menu {
     flex-direction: column;
     // added styles
     width: 500px;
-    .menu__list, .menu__list:last-child {
+
+    .menu__list {
+      display: flex;
+      align-items: center;
+      height: 50px;
       text-align: left;
-      margin-bottom: 68px;
       width: 50%;
+      font-size: 20px;
+      font-weight: bold;
     }
   }
-  .header__burger.active span{
+
+  .header__burger.active span {
     transform: scale(0);
   }
-  .header__burger.active::before{
+
+  .header__burger.active::before {
     transform: rotate(45deg);
     top: 8px;
   }
-  .header__burger.active::after{
+
+  .header__burger.active::after {
     transform: rotate(-45deg);
     bottom: 9px;
   }
