@@ -14,4 +14,18 @@ export default {
                 return error;
             })
     },
+
+    GET_RANDOM_MEAL_FROM_API({ commit }) {
+        return axios('http://localhost:8000/api/meal', {
+            method: 'GET',
+        })
+            .then(response => {
+                commit('SET_MEALS_TO_STATE', response.data);
+                return response;
+            })
+            .catch(error => {
+                console.log(error);
+                return error;
+            })
+    }
 };

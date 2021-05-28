@@ -2,7 +2,7 @@
   <div class="v-header">
     <header class="header">
       <router-link :to="{name: 'home'}">
-        <span class="logo">WSIC</span>
+        <div class="header__logo">WSIC</div>
       </router-link>
       <div
           class="header__burger"
@@ -49,6 +49,10 @@ export default {
           page: 'ingredients',
           title: 'Ингредиенты',
         },
+        {
+          page: 'meal',
+          title: 'Случайный рецепт',
+        },
       ],
     }
   },
@@ -76,13 +80,14 @@ export default {
   background-position-x: center;
   background-position-y: -80px;
 
-  .logo {
+  &__logo {
+    position: relative;
     height: 50px;
     color: #ffffff;
     font-size: 40px;
     font-weight: 400;
     text-transform: uppercase;
-    z-index: 100;
+    z-index: 30;
   }
 
   .header__list {
@@ -95,8 +100,9 @@ export default {
     position: relative;
     width: 30px;
     height: 20px;
-    z-index: 3;
+    z-index: 30;
     margin: 0 30px;
+    cursor: pointer;
   }
 
   .header__burger span {
@@ -142,7 +148,7 @@ export default {
     // added style
     display: flex;
     justify-content: center;
-    z-index: 2;
+    z-index: 20;
   }
 
   .header__menu.active {
@@ -155,10 +161,14 @@ export default {
     // added styles
     width: 500px;
 
-    .menu__list, .menu__list:last-child {
+    .menu__list {
+      display: flex;
+      align-items: center;
+      height: 50px;
       text-align: left;
-      margin-bottom: 68px;
       width: 50%;
+      font-size: 20px;
+      font-weight: bold;
     }
   }
 

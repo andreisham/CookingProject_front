@@ -49,13 +49,14 @@ export default {
   methods: {
     ...mapActions([
       'GET_MEALS_FROM_API_BY_INGREDIENT_ID',
+        'GET_RANDOM_MEAL_FROM_API',
     ]),
 
     loadMeals(ingredientId = null) {
       if (ingredientId) {
         this.GET_MEALS_FROM_API_BY_INGREDIENT_ID(ingredientId);
       } else {
-        console.log('#');
+        this.GET_RANDOM_MEAL_FROM_API();
       }
     },
   },
