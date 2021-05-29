@@ -39,10 +39,18 @@ export default {
     }
   },
 
-  mounted() {
-    this.$set(this.mealData, 'components_measure', JSON.parse(this.mealData.components_measure));
-  }
+  methods: {
+      parseJson(value) {
+        if (typeof value === 'string') {
+          return JSON.parse(value);
+        }
+        return value;
+      }
+  },
 
+  mounted() {
+    this.$set(this.mealData, 'components_measure', this.parseJson(this.mealData.components_measure));
+  }
 }
 </script>
 
