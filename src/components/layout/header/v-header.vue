@@ -94,7 +94,6 @@ export default {
     display: flex;
   }
 
-  //burger
   .header__burger {
     display: block;
     position: relative;
@@ -144,8 +143,6 @@ export default {
     background-image: linear-gradient(to top, #fc686f 0%, #ff934c 100%);
     overflow: auto;
     transition: all 0.3s ease 0s;
-
-    // added style
     display: flex;
     justify-content: center;
     z-index: 20;
@@ -158,7 +155,6 @@ export default {
 
   .menu {
     flex-direction: column;
-    // added styles
     width: 500px;
 
     .menu__list {

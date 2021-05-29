@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default {
     GET_MEALS_FROM_API_BY_INGREDIENT_ID({ commit }, ingredientId) {
-        return axios('http://localhost:8000/api/meals?ingredient=' + ingredientId, {
+        return axios(this._vm.$env.serverApi.url + '/api/meals?ingredient=' + ingredientId, {
             method: 'GET',
         })
             .then(response => {
@@ -16,7 +16,7 @@ export default {
     },
 
     GET_RANDOM_MEAL_FROM_API({ commit }) {
-        return axios('http://localhost:8000/api/meal', {
+        return axios(this._vm.$env.serverApi.url + '/api/meal', {
             method: 'GET',
         })
             .then(response => {

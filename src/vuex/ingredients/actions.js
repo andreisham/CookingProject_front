@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default {
     GET_INGREDIENTS_FROM_API({ commit }) {
-        return axios('http://localhost:8000/api/ingredients', {
+        return axios(this._vm.$env.serverApi.url + '/api/ingredients', {
             method: 'GET',
         })
             .then(response => {
