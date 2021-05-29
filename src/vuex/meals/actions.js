@@ -27,5 +27,9 @@ export default {
                 console.log(error);
                 return error;
             })
+    },
+
+    CLEAR_MEALS({ commit }) {
+        commit('CLEAR_MEALS_STATE');
     }
 };
