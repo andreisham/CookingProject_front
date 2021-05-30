@@ -30,6 +30,12 @@ export default {
     vMealsItem,
   },
 
+  data() {
+    return {
+      loading: true,
+    }
+  },
+
   computed: {
     ...mapGetters([
       'MEALS',
@@ -56,7 +62,7 @@ export default {
     loadMeals(ingredientId = null) {
       this.CLEAR_MEALS();
       if (ingredientId) {
-        this.GET_MEALS_FROM_API_BY_INGREDIENT_ID(ingredientId);
+        this.GET_MEALS_FROM_API_BY_INGREDIENT_ID(ingredientId)
       } else {
         this.GET_RANDOM_MEAL_FROM_API();
       }

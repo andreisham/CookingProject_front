@@ -4,8 +4,9 @@ import App from './App.vue';
 import router from './router/router';
 import store from './vuex/store';
 
-import './assets/styles/styles.scss';
 import 'material-design-icons-iconfont';
+import './assets/styles/styles.scss';
+
 import env from '../.env.local';
 
 Vue.prototype.$env = env;

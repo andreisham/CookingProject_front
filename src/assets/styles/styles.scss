@@ -1,8 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #ffffff;
   overflow-x: hidden;
 }
+
 body.lock {
   overflow: hidden
 }
@@ -14,6 +20,7 @@ ul {
 li {
   text-decoration: none;
 }
+
 a {
   text-decoration: none;
   color: #ffffff;
