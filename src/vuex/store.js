@@ -10,7 +10,7 @@ const store = new Vuex.Store({
     modules: {
         ingredientsModule,
         mealsModule,
-    }
+    },
 });
 
 export default store;

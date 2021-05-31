@@ -14,8 +14,9 @@
 
       <nav
           class="header__menu nav"
-          :class="{active: isMenuOpen }"
+          :class="{active: isMenuOpen}"
       >
+
         <ul class="menu">
           <li
               class="menu__list"
@@ -29,6 +30,7 @@
             >{{ link.title }}</router-link>
           </li>
         </ul>
+
       </nav>
 
     </header>
@@ -76,7 +78,7 @@ export default {
   padding: 40px;
   height: 265px;
   background: url("../../../assets/img/backgr.svg") no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-position-x: center;
   background-position-y: -80px;
 
@@ -90,24 +92,23 @@ export default {
     z-index: 30;
   }
 
-  .header__list {
+  &__list {
     display: flex;
   }
 
-  //burger
-  .header__burger {
+  &__burger {
     display: block;
     position: relative;
     width: 30px;
     height: 20px;
     z-index: 30;
-    margin: 0 30px;
+    margin: 10px 20px;
     cursor: pointer;
   }
 
-  .header__burger span {
+  &__burger span {
     position: absolute;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     left: 0;
     height: 3px;
     top: 9px;
@@ -115,10 +116,10 @@ export default {
     transition: all 0.3s ease 0s;
   }
 
-  .header__burger::before,
-  .header__burger::after {
+  &__burger::before,
+  &__burger::after {
     content: "";
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     position: absolute;
     width: 100%;
     height: 3px;
@@ -126,15 +127,15 @@ export default {
     transition: all 0.3s ease 0s;
   }
 
-  .header__burger::before {
+  &__burger::before {
     top: 0;
   }
 
-  .header__burger::after {
+  &__burger::after {
     bottom: 0;
   }
 
-  .header__menu {
+  &__menu {
     position: fixed;
     top: -100%;
     left: 0;
@@ -144,22 +145,35 @@ export default {
     background-image: linear-gradient(to top, #fc686f 0%, #ff934c 100%);
     overflow: auto;
     transition: all 0.3s ease 0s;
-
-    // added style
     display: flex;
     justify-content: center;
     z-index: 20;
   }
 
-  .header__menu.active {
+  &__menu.active {
     top: 0;
     padding-top: 110px;
   }
 
+  &__burger.active span {
+    transform: scale(0);
+  }
+
+  &__burger.active::before {
+    transform: rotate(45deg);
+    top: 8px;
+  }
+
+  &__burger.active::after {
+    transform: rotate(-45deg);
+    bottom: 9px;
+  }
+
   .menu {
     flex-direction: column;
-    // added styles
     width: 500px;
+    padding: 40px;
+    box-sizing: border-box;
 
     .menu__list {
       display: flex;
@@ -170,20 +184,6 @@ export default {
       font-size: 20px;
       font-weight: bold;
     }
-  }
-
-  .header__burger.active span {
-    transform: scale(0);
-  }
-
-  .header__burger.active::before {
-    transform: rotate(45deg);
-    top: 8px;
-  }
-
-  .header__burger.active::after {
-    transform: rotate(-45deg);
-    bottom: 9px;
   }
 }
 </style>

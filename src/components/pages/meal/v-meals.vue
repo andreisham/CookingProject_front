@@ -10,7 +10,7 @@
       />
     </main>
 
-    <v-footer />
+    <v-footer/>
   </div>
 </template>
 
@@ -30,6 +30,12 @@ export default {
     vMealsItem,
   },
 
+  data() {
+    return {
+      loading: true,
+    }
+  },
+
   computed: {
     ...mapGetters([
       'MEALS',
@@ -37,7 +43,7 @@ export default {
   },
 
   watch: {
-    $route: function() {
+    $route: function () {
       this.loadMeals(this.$route.params.id);
     }
   },
@@ -49,12 +55,14 @@ export default {
   methods: {
     ...mapActions([
       'GET_MEALS_FROM_API_BY_INGREDIENT_ID',
-        'GET_RANDOM_MEAL_FROM_API',
+      'GET_RANDOM_MEAL_FROM_API',
+      'CLEAR_MEALS',
     ]),
 
     loadMeals(ingredientId = null) {
+      this.CLEAR_MEALS();
       if (ingredientId) {
-        this.GET_MEALS_FROM_API_BY_INGREDIENT_ID(ingredientId);
+        this.GET_MEALS_FROM_API_BY_INGREDIENT_ID(ingredientId)
       } else {
         this.GET_RANDOM_MEAL_FROM_API();
       }
