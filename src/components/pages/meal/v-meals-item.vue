@@ -1,6 +1,6 @@
 <template>
   <div class="v-meals-item">
-    <h2 class="heading">{{ mealData.name }}</h2>
+    <h2 class="heading">{{ mealData.name | ucfirst }}</h2>
 
     <img
         class="v-meals-item__img"
@@ -15,7 +15,7 @@
           :key="index"
       >
         <img src="../../../assets/img/list-style.png" class="recipe__img" alt="img">
-        {{ index }} - {{ item }}
+        {{ showComponentMeasure(index, item) }}
       </li>
     </ul>
 
@@ -26,6 +26,8 @@
 </template>
 
 <script>
+
+import ucfirst from "../../../filters/ucfirst";
 
 export default {
   name: "v-meals-item",
@@ -40,17 +42,25 @@ export default {
   },
 
   methods: {
-      parseJson(value) {
-        if (typeof value === 'string') {
-          return JSON.parse(value);
-        }
-        return value;
+    parseJson(value) {
+      if (typeof value === 'string') {
+        return JSON.parse(value);
       }
+      return value;
+    },
+
+    showComponentMeasure(component, measure) {
+      return component + (measure.length > 0 ? (' - ' + measure) : '');
+    }
   },
 
   mounted() {
     this.$set(this.mealData, 'components_measure', this.parseJson(this.mealData.components_measure));
-  }
+  },
+
+  filters: {
+    ucfirst,
+  },
 }
 </script>
 

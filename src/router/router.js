@@ -20,15 +20,16 @@ let router = new Router({
             name: 'ingredients',
             component: vIngredients,
         },
+        // {
+        //     path: '/meal',
+        //     name: 'meal',
+        //     component: vMeals,
+        // },
         {
-            path: '/meal',
-            name: 'meal',
-            component: vMeals,
-        },
-        {
-            path: '/meals/:id',
+            path: '/meals',
             name: 'meals',
             component: vMeals,
+            props: true,
         }
     ]
 });

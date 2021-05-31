@@ -1,9 +1,11 @@
 import axios from "axios";
 
 export default {
-    GET_MEALS_FROM_API_BY_INGREDIENT_ID({ commit }, ingredientId) {
-        return axios(this._vm.$env.api + '/api/meals?ingredient=' + ingredientId, {
-            method: 'GET',
+    GET_MEALS_FROM_API_BY_INGREDIENTS({commit}, ingredients) {
+        return axios.get(this._vm.$env.api + '/api/meals', {
+            params: {
+                ingredient: ingredients,
+            },
         })
             .then(response => {
                 commit('SET_MEALS_TO_STATE', response.data);
@@ -15,10 +17,8 @@ export default {
             })
     },
 
-    GET_RANDOM_MEAL_FROM_API({ commit }) {
-        return axios(this._vm.$env.api + '/api/meal', {
-            method: 'GET',
-        })
+    GET_RANDOM_MEAL_FROM_API({commit}) {
+        return axios.get(this._vm.$env.api + '/api/meal/random')
             .then(response => {
                 commit('SET_MEALS_TO_STATE', response.data);
                 return response;
@@ -29,7 +29,7 @@ export default {
             })
     },
 
-    CLEAR_MEALS({ commit }) {
+    CLEAR_MEALS({commit}) {
         commit('CLEAR_MEALS_STATE');
-    }
+    },
 };

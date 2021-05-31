@@ -1,11 +1,12 @@
 <template>
-  <router-link :to="{name: 'meals', params: { id: ingredientData.id }}">
-    <div class="v-ingredients-item">
-        <p class="v-ingredients-item__name">
-          {{ ingredientData.name | ucfirst}}
-        </p>
-    </div>
-  </router-link>
+  <div
+      class="v-ingredients-item"
+      @click="gotToMealsPage"
+  >
+    <p class="v-ingredients-item__name">
+      {{ ingredientData.name | ucfirst }}
+    </p>
+  </div>
 </template>
 
 <script>
@@ -25,7 +26,16 @@ export default {
 
   filters: {
     ucfirst,
-  }
+  },
+
+  methods: {
+    gotToMealsPage() {
+      this.$router.push({
+        name: 'meals',
+        params: {ingredients: [ this.ingredientData.id ]},
+      })
+    }
+  },
 }
 </script>
 
@@ -34,8 +44,9 @@ export default {
   display: flex;
   align-items: center;
   height: 50px;
+  transition: all .1s linear;
 
-  &:hover  {
+  &:hover {
     background-color: #e7e7e7;
     box-shadow: 0 0 5px 0 #e7e7e7;
     cursor: pointer;

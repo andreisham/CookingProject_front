@@ -52,7 +52,7 @@ export default {
           title: 'Ингредиенты',
         },
         {
-          page: 'meal',
+          page: 'meals',
           title: 'Случайный рецепт',
         },
       ],
@@ -172,7 +172,7 @@ export default {
   .menu {
     flex-direction: column;
     width: 500px;
-    padding: 40px;
+    padding: 30px;
     box-sizing: border-box;
 
     .menu__list {
