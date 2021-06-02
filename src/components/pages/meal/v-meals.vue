@@ -1,32 +1,21 @@
 <template>
-  <div class="v-meals">
-    <v-header/>
-
-    <main class="ingredients">
+  <main class="v-meals">
       <v-meals-item
           v-for="meal in MEALS"
           :key="meal.id"
           :mealData=meal
       />
-    </main>
-
-    <v-footer/>
-  </div>
+  </main>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-
-import vHeader from '../../layout/header/v-header';
-import vFooter from '../../layout/footer/v-footer';
 import vMealsItem from './v-meals-item';
 
 export default {
   name: "v-meals",
 
   components: {
-    vHeader,
-    vFooter,
     vMealsItem,
   },
 
@@ -80,7 +69,7 @@ export default {
 </script>
 
 <style lang="scss">
-.ingredients {
+.v-meals {
   margin: 14px 40px;
   color: #434343;
 }

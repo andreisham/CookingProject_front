@@ -1,8 +1,6 @@
 <template>
   <div class="v-main-wrapper">
-    <div class="container">
-        <router-view></router-view>
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -11,15 +9,14 @@
 
 export default {
   name: "v-main-wrapper",
-  components: {}
 }
 </script>
 
 <style lang="scss">
 
-.container {
-  padding: 0 calc(50% - 270px);
-  width: 500px;
+.v-main-wrapper {
+  margin: 0 auto;
+  max-width: $mobile-max-width;
 }
 
 </style>
