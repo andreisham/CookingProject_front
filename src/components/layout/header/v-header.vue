@@ -3,13 +3,23 @@
 
     <div class="v-header__content">
       <router-link :to="{name: 'home'}">
-        <div class="v-header__logo">WSIC</div>
+        <div
+            class="v-header__logo"
+            @click="logoClick"
+        >
+          WSIC
+        </div>
       </router-link>
-
-      <v-burger @activateBurger="toggleMenu"/>
+      <v-burger
+          :isBurgerActive="isMenuOpen"
+          @activateBurger="toggleMenu"
+      />
     </div>
 
-    <v-nav :isMenuOpen="isMenuOpen"/>
+    <v-nav
+        :isMenuOpen="isMenuOpen"
+        @selectRoute="toggleMenu"
+    />
 
   </header>
 </template>
@@ -36,6 +46,10 @@ export default {
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
     },
+
+    logoClick() {
+      this.isMenuOpen = false;
+    }
   }
 }
 </script>
@@ -65,6 +79,7 @@ export default {
     line-height: 40px;
     text-transform: uppercase;
     z-index: 30;
+    cursor: pointer;
   }
 }
 

@@ -12,15 +12,17 @@
 export default {
   name: "v-burger",
 
-  data() {
-    return {
-        isBurgerActive: false,
-    };
+  props: {
+    isBurgerActive: {
+      type: Boolean,
+      default() {
+        return false;
+      },
+    },
   },
 
   methods: {
     activateBurger() {
-      this.isBurgerActive = !this.isBurgerActive;
       this.$emit('activateBurger', this.isBurgerActive);
     }
   }

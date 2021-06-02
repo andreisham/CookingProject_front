@@ -6,12 +6,11 @@
     <div class="v-nav__menu">
         <router-link
             class="v-nav__link"
+            :to="{name: route.page}"
             v-for="(route, index) in routes"
             :key="index"
-            @click="selectRoute"
-            :to="{name: route.page}"
         >
-          {{ route.title }}
+            <span @click="selectRoute">{{ route.title }}</span>
         </router-link>
     </div>
   </div>
@@ -33,10 +32,6 @@ export default {
   data() {
     return {
       routes: [
-        {
-          page: 'home',
-          title: 'Главная',
-        },
         {
           page: 'ingredients',
           title: 'Ингредиенты',
@@ -79,6 +74,7 @@ export default {
 
   &__menu {
     max-width: $mobile-max-width;
+    display: flex;
     flex-direction: column;
     width: 100%;
     padding: 0 40px;
@@ -90,6 +86,7 @@ export default {
     height: 40px;
     color: $white;
     font-size: 18px;
+    cursor: pointer;
   }
 }
 </style>

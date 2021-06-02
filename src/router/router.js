@@ -8,7 +8,7 @@ import vIngredients from '../components/pages/ingredients/v-ingredients';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
     mode: 'history',
     routes: [
         {
@@ -16,7 +16,7 @@ export default new Router({
             component: vSkeleton,
             children: [
                 {
-                    path: '/',
+                    path: '',
                     name: 'home',
                     component: vHome,
                 },
@@ -35,3 +35,5 @@ export default new Router({
         },
     ]
 });
+
+export default router;
