@@ -1,33 +1,31 @@
 <template>
-  <div class="v-meals">
-    <v-header/>
-
-    <main class="ingredients">
+  <main class="v-meals">
       <v-meals-item
           v-for="meal in MEALS"
           :key="meal.id"
           :mealData=meal
       />
-    </main>
-
-    <v-footer/>
-  </div>
+  </main>
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex';
-
-import vHeader from '../../layout/header/v-header';
-import vFooter from '../../layout/footer/v-footer';
+import { mapActions, mapGetters } from 'vuex';
 import vMealsItem from './v-meals-item';
 
 export default {
   name: "v-meals",
 
   components: {
-    vHeader,
-    vFooter,
     vMealsItem,
+  },
+
+  props: {
+    ingredients: {
+      type: Array,
+      default() {
+        return [];
+      }
+    },
   },
 
   data() {
@@ -44,36 +42,34 @@ export default {
 
   watch: {
     $route: function () {
-      this.loadMeals(this.$route.params.id);
-    }
+      this.loadMeals();
+    },
   },
 
   mounted() {
-    this.loadMeals(this.$route.params.id);
+    this.loadMeals();
   },
 
   methods: {
     ...mapActions([
-      'GET_MEALS_FROM_API_BY_INGREDIENT_ID',
-      'GET_RANDOM_MEAL_FROM_API',
       'CLEAR_MEALS',
+      'GET_RANDOM_MEAL_FROM_API',
+      'GET_MEALS_FROM_API_BY_INGREDIENTS',
     ]),
 
-    loadMeals(ingredientId = null) {
+    loadMeals() {
       this.CLEAR_MEALS();
-      if (ingredientId) {
-        this.GET_MEALS_FROM_API_BY_INGREDIENT_ID(ingredientId)
-      } else {
-        this.GET_RANDOM_MEAL_FROM_API();
+      if (this.ingredients.length > 0) {
+        return this.GET_MEALS_FROM_API_BY_INGREDIENTS(this.ingredients);
       }
+      return this.GET_RANDOM_MEAL_FROM_API();
     },
   },
-
 }
 </script>
 
 <style lang="scss">
-.ingredients {
+.v-meals {
   margin: 14px 40px;
   color: #434343;
 }

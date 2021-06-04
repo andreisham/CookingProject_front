@@ -1,19 +1,21 @@
 <template>
-  <div class="v-footer">
-    <footer class="footer">
-      <img src="../../../assets/img/footer.png" alt="footer">
-    </footer>
-  </div>
+  <footer class="v-footer"></footer>
 </template>
 
 <script>
 export default {
-  name: "v-footer"
+  name: "v-footer",
 }
 </script>
 
 <style lang="scss">
-.footer{
-  margin-top: 85px;
+.v-footer {
+  flex: 0 0 auto;
+  background: url('../../../assets/img/footer.png') no-repeat;
+  background-position-x: center;
+  background-position-y: 15px;
+  background-size: cover;
+  height: 270px;
 }
+
 </style>

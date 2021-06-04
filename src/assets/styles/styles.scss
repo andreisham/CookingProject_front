@@ -1,27 +1,2 @@
-* {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #ffffff;
-  overflow-x: hidden;
-}
-
-body.lock {
-  overflow: hidden
-}
-
-ul {
-  list-style-type: none;
-}
-
-li {
-  text-decoration: none;
-}
-
-a {
-  text-decoration: none;
-  color: #ffffff;
-}
+@import './variables/colors';
+@import './variables/layout';
