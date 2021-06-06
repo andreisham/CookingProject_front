@@ -7,12 +7,29 @@
 <script>
 
 import vMainWrapper from './components/v-main-wrapper';
+import { mapActions } from "vuex";
 
 export default {
   name: 'App',
+
   components: {
     vMainWrapper,
-  }
+  },
+
+  methods: {
+    ...mapActions([
+       'INIT_FAVORITE_MEALS',
+    ]),
+
+    async getFavoritesFromApi() {
+      const favorites = (await this.$api.favorites.get()).data;
+      this.INIT_FAVORITE_MEALS(favorites);
+    }
+  },
+
+  mounted() {
+    this.getFavoritesFromApi();
+  },
 }
 </script>
 
