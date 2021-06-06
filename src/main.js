@@ -15,9 +15,6 @@ import Api from './plugins/api';
 
 Vue.use(Api);
 
-import env from '../.env.local';
-
-Vue.prototype.$env = env;
 Vue.config.productionTip = false;
 
 new Vue({
