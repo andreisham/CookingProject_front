@@ -40,6 +40,10 @@ export default {
           page: 'meals',
           title: 'Случайный рецепт',
         },
+        {
+          page: 'favorites',
+          title: 'Избранное',
+        }
       ],
     }
   },

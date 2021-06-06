@@ -6,6 +6,8 @@ import vHome from '../components/pages/home/v-home';
 import vMeals from '../components/pages/meal/v-meals';
 import vIngredients from '../components/pages/ingredients/v-ingredients';
 
+import vFavorites from '../components/pages/favorites/v-favorites';
+
 Vue.use(Router);
 
 const router = new Router({
@@ -26,6 +28,11 @@ const router = new Router({
                     component: vMeals,
                     props: true,
                 },
+                {
+                    path: 'favorites',
+                    name: 'favorites',
+                    component: vFavorites,
+                }
             ],
         },
         {
