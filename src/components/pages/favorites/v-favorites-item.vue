@@ -1,17 +1,21 @@
 <template>
-  <div class="v-favorites-item">
+  <div
+      class="v-favorites-item"
+      :class="{'v-favorites-item_move-out': removed}"
+  >
+
     <div class="v-favorites-item__left">
-      <img src="https://www.themealdb.com/images/media/meals/yrstur1511816601.jpg" alt="img" class="v-favorites-item__img">
+      <img :src="favoritesItemData.api_img" alt="img" class="v-favorites-item__img">
     </div>
 
     <div class="v-favorites-item__center">
-      <h3 class="v-favorites-item__name">Сахарный пирог</h3>
+      <h3 class="v-favorites-item__name">{{ favoritesItemData.name }}</h3>
     </div>
 
     <div class="v-favorites-item__right">
       <v-favorite-icon
           class="v-favorites-item__icon"
-          :isSelected="isItemInFavorites"
+          :isSelected="!removed"
           @clickFavoriteIcon="clickFavoriteIcon"
       />
     </div>
@@ -28,15 +32,27 @@ export default {
     vFavoriteIcon,
   },
 
+  props: {
+    favoritesItemData: {
+      type: Object,
+      default() {
+        return {};
+      },
+    }
+  },
+
   data() {
     return {
-      isItemInFavorites: false,
-    };
+      removed: false,
+    }
   },
 
   methods: {
-    clickFavoriteIcon(value) {
-      this.isItemInFavorites = value;
+    clickFavoriteIcon() {
+      this.removed = true;
+      setTimeout(() => {
+        this.$emit('removeFavoriteItem');
+      }, 500)
     },
   },
 }
@@ -46,7 +62,11 @@ export default {
 .v-favorites-item {
   display: flex;
   padding: 20px 15px;
-  transition: all .3s;
+  transition: all .5s;
+
+  &_move-out {
+    transform: translateX(-500px);
+  }
 
   &:hover {
     background-color: #e7e7e7;

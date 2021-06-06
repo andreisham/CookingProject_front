@@ -5,10 +5,24 @@
       <h1 class="v-favorites__h1">Избранное</h1>
     </div>
 
-    <div class="v-favorites__items">
+    <div
+        class="v-favorites__items"
+        v-if="FAVORITE_MEALS.length"
+    >
 
-      <v-favorites-item />
+      <v-favorites-item
+          v-for="(item, index) in FAVORITE_MEALS"
+          :key="item.id"
+          :favoritesItemData="item"
+          @removeFavoriteItem="removeFavoriteItem(index, item.id)"
+      />
 
+    </div>
+    <div
+        class="v-favorites__items v-favorites__items_empty"
+        v-else
+    >
+      <h3 class="v-favorites__items__empty-alert">No recipes in favorites...</h3>
     </div>
 
   </div>
@@ -16,6 +30,7 @@
 
 <script>
 import vFavoritesItem from './v-favorites-item';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: "v-favorites",
@@ -24,9 +39,22 @@ export default {
     vFavoritesItem,
   },
 
-  mounted() {
+  computed: {
+    ...mapGetters([
+      'FAVORITE_MEALS',
+    ]),
+  },
 
-  }
+  methods: {
+    ...mapActions([
+       'REMOVE_FAVORITE_MEAL',
+    ]),
+
+    removeFavoriteItem(index) {
+        this.REMOVE_FAVORITE_MEAL(index);
+        // this.$api.favorites.remove(mealId);
+    }
+  },
 }
 </script>
 
@@ -40,7 +68,7 @@ export default {
     justify-content: flex-start;
     align-items: center;
     height: 80px;
-    box-shadow: 0 8px 15px -10px rgba(34, 60, 80, 0.1);
+    box-shadow: 0 8px 7px -10px rgba(34, 60, 80, 0.1);
   }
 
   &__h1 {
@@ -50,6 +78,7 @@ export default {
   .v-favorites__items {
     overflow: auto;
     max-height: 600px;
+    box-shadow: 0 -8px 7px -10px rgba(34, 60, 80, 0.1) inset;
 
     &::-webkit-scrollbar {
       width: 5px;
@@ -62,6 +91,18 @@ export default {
 
     &::-webkit-scrollbar-button {
       display: none;
+    }
+
+    &_empty {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: none;
+      height: 300px;
+    }
+
+    &__empty-alert {
+      color: $light-grey;
     }
   }
 }
