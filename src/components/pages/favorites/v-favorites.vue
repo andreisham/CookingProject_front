@@ -7,28 +7,22 @@
 
     <div class="v-favorites__items">
 
-      <div class="v-favorites-item">
-        <div class="v-favorites-item__left">
-          <img src="https://www.themealdb.com/images/media/meals/yrstur1511816601.jpg" alt="img" class="v-favorites-item__img">
-        </div>
+      <v-favorites-item />
 
-        <div class="v-favorites-item__center">
-          <h3 class="v-favorites-item__name">Сахарный пирог</h3>
-        </div>
-
-        <div class="v-favorites-item__right">
-          <i class="material-icons v-favorites-item__i">favorite_border</i>
-        </div>
-      </div>
     </div>
-
 
   </div>
 </template>
 
 <script>
+import vFavoritesItem from './v-favorites-item';
+
 export default {
   name: "v-favorites",
+
+  components: {
+    vFavoritesItem,
+  },
 }
 </script>
 
@@ -64,56 +58,6 @@ export default {
 
     &::-webkit-scrollbar-button {
       display: none;
-    }
-  }
-
-  .v-favorites-item {
-    display: flex;
-    padding: 20px 15px;
-    transition: all .3s;
-
-    &:hover {
-      background-color: #e7e7e7;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    &__left {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    &__img {
-      width: 100px;
-      border-radius: 50px;
-    }
-
-    &__center {
-      flex: 3;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-    }
-
-    &__name {
-      margin-left: 25px;
-      font-size: 24px;
-      font-weight: normal;
-    }
-
-    &__right {
-      flex: 1px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 60px;
-    }
-
-    &__i {
-      font-size: 45px;
-      color: $green
     }
   }
 }

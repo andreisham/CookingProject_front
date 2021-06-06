@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import vBurger from '../../elements/burger/v-burger';
+import vBurger from '../../elements/v-burger';
 import vNav from '../../../components/nav/v-nav';
 
 export default {
