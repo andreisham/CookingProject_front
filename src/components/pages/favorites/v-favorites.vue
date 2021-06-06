@@ -23,6 +23,10 @@ export default {
   components: {
     vFavoritesItem,
   },
+
+  mounted() {
+
+  }
 }
 </script>
 
