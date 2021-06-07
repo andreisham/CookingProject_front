@@ -55,13 +55,20 @@ export default {
       'CLEAR_MEALS',
       'GET_RANDOM_MEAL_FROM_API',
       'GET_MEALS_FROM_API_BY_INGREDIENTS',
+      'GET_MEALS_FROM_API_BY_ID',
     ]),
 
     loadMeals() {
       this.CLEAR_MEALS();
+
+      if (this.$route.params.id) {
+        return this.GET_MEALS_FROM_API_BY_ID(this.$route.params.id)
+      }
+
       if (this.ingredients.length > 0) {
         return this.GET_MEALS_FROM_API_BY_INGREDIENTS(this.ingredients);
       }
+
       return this.GET_RANDOM_MEAL_FROM_API();
     },
   },

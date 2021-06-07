@@ -29,6 +29,11 @@ const router = new Router({
                     props: true,
                 },
                 {
+                    path: 'meals/:id',
+                    name: 'meal',
+                    component: vMeals,
+                },
+                {
                     path: 'favorites',
                     name: 'favorites',
                     component: vFavorites,

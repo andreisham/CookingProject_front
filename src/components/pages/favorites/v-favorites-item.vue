@@ -5,11 +5,19 @@
   >
 
     <div class="v-favorites-item__left">
-      <img :src="favoritesItemData.api_img" alt="img" class="v-favorites-item__img">
+      <img
+          :src="favoritesItemData.api_img"
+          alt="img"
+          class="v-favorites-item__img"
+          @click="goToMealPage"
+      >
     </div>
 
     <div class="v-favorites-item__center">
-      <h3 class="v-favorites-item__name">{{ favoritesItemData.name }}</h3>
+      <h3
+          class="v-favorites-item__name"
+          @click="goToMealPage"
+      >{{ favoritesItemData.name }}</h3>
     </div>
 
     <div class="v-favorites-item__right">
@@ -54,6 +62,10 @@ export default {
         this.$emit('removeFavoriteItem');
       }, 500)
     },
+
+    goToMealPage() {
+      this.$router.push({ name: 'meal', params: { id: this.favoritesItemData.id } });
+    },
   },
 }
 </script>
@@ -71,7 +83,6 @@ export default {
   &:hover {
     background-color: #e7e7e7;
     border-radius: 8px;
-    cursor: pointer;
   }
 
   &__left {
@@ -84,6 +95,7 @@ export default {
   &__img {
     width: 100px;
     border-radius: 50px;
+    cursor: pointer;
   }
 
   &__center {
@@ -97,6 +109,7 @@ export default {
     margin-left: 25px;
     font-size: 24px;
     font-weight: normal;
+    cursor: pointer;
   }
 
   &__right {
