@@ -1,15 +1,19 @@
 <template>
   <main class="v-meals">
-      <v-meals-item
-          v-for="meal in MEALS"
-          :key="meal.id"
-          :mealData=meal
-      />
+    <v-meals-item
+        v-for="meal in MEALS"
+        :key="meal.id"
+        :mealData="meal"
+        :isFavorite="isMealInFavorites(meal.id)"
+        @clickFavoriteIcon="clickFavoriteIcon"
+    />
   </main>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import findArrayIndexByItemProperty from '../../../helpers/findArrayIndexByItemProperty';
+import findArrayValueByItemProperty from '../../../helpers/findArrayValueByItemProperty';
 import vMealsItem from './v-meals-item';
 
 export default {
@@ -37,6 +41,7 @@ export default {
   computed: {
     ...mapGetters([
       'MEALS',
+      'FAVORITE_MEALS',
     ]),
   },
 
@@ -56,6 +61,8 @@ export default {
       'GET_RANDOM_MEAL_FROM_API',
       'GET_MEALS_FROM_API_BY_INGREDIENTS',
       'GET_MEALS_FROM_API_BY_ID',
+      'ADD_FAVORITE_MEAL',
+      'REMOVE_FAVORITE_MEAL',
     ]),
 
     loadMeals() {
@@ -70,6 +77,28 @@ export default {
       }
 
       return this.GET_RANDOM_MEAL_FROM_API();
+    },
+
+    isMealInFavorites(id) {
+      return undefined !== findArrayValueByItemProperty(this.FAVORITE_MEALS, id);
+    },
+
+    clickFavoriteIcon(meal) {
+      if (this.isMealInFavorites(meal.id)) {
+        this.removeFromFavorites(meal.id);
+      } else {
+        this.addToFavorites(meal);
+      }
+    },
+
+    removeFromFavorites(id) {
+      this.REMOVE_FAVORITE_MEAL(findArrayIndexByItemProperty(this.FAVORITE_MEALS, id));
+      this.$api.favorites.remove(id);
+    },
+
+    addToFavorites(meal) {
+      this.ADD_FAVORITE_MEAL(meal);
+      this.$api.favorites.add(meal.id);
     },
   },
 }

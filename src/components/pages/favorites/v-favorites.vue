@@ -50,10 +50,10 @@ export default {
        'REMOVE_FAVORITE_MEAL',
     ]),
 
-    removeFavoriteItem(index) {
+    removeFavoriteItem(index, mealId) {
         this.REMOVE_FAVORITE_MEAL(index);
-        // this.$api.favorites.remove(mealId);
-    }
+        this.$api.favorites.remove(mealId);
+    },
   },
 }
 </script>
