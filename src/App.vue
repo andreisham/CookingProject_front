@@ -18,12 +18,12 @@ export default {
 
   methods: {
     ...mapActions([
-       'INIT_FAVORITE_MEALS',
+       'LOAD_FAVORITE_MEALS',
     ]),
 
     async getFavoritesFromApi() {
       const favorites = (await this.$api.favorites.get()).data;
-      this.INIT_FAVORITE_MEALS(favorites);
+      this.LOAD_FAVORITE_MEALS(favorites);
     }
   },
 

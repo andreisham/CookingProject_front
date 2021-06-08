@@ -1,17 +1,5 @@
-import axios from "axios";
-
 export default {
-    GET_INGREDIENTS_FROM_API({ commit }) {
-        return axios('/api/ingredients', {
-            method: 'GET',
-        })
-            .then(response => {
-                commit('SET_INGREDIENTS_TO_STATE', response.data);
-                return response;
-            })
-            .catch(error => {
-                console.log(error);
-                return error;
-            })
-    },
+    LOAD_INGREDIENTS({ commit }, ingredients) {
+        commit('SET_INGREDIENTS_TO_STATE', ingredients);
+    }
 };

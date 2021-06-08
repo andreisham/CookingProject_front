@@ -1,4 +1,4 @@
-import api from '../axios/api/index';
+import api from '../axios';
 
 export default {
     install(Vue) {

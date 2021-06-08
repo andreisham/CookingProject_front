@@ -1,5 +1,5 @@
 export default {
-    INIT_FAVORITE_MEALS({ commit }, meals) {
+    LOAD_FAVORITE_MEALS({ commit }, meals) {
         commit('SET_FAVORITE_MEALS_TO_STATE', meals);
     },
 

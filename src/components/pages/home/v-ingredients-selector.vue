@@ -77,10 +77,37 @@ export default {
     ]),
   },
 
+  watch: {
+    inputData() {
+      this.sortIngredients();
+      this.sortedIngredients = this.inputData.length !== 0 ? this.sortedIngredients : [];
+      this.isSelectorOpen = this.sortedIngredients.length > 0;
+    },
+  },
+
+  mounted() {
+    if (this.INGREDIENTS.length === 0) {
+      this.getIngredientsFromApi();
+    }
+
+    document.addEventListener('click', ({target}) => {
+      if (!target.classList.contains('ingredients-selector__item')
+          && !target.classList.contains('ingredients-selector__input')
+          && !target.classList.contains('ingredients-selector__selected-remove-icon')) {
+        this.isSelectorOpen = false;
+      }
+    });
+  },
+
   methods: {
     ...mapActions([
-      'GET_INGREDIENTS_FROM_API',
+      'LOAD_INGREDIENTS',
     ]),
+
+    async getIngredientsFromApi() {
+      const ingredients = (await this.$api.ingredients.get()).data;
+      this.LOAD_INGREDIENTS(ingredients);
+    },
 
     showMealsRecipes() {
       this.$router.push({
@@ -105,26 +132,6 @@ export default {
       this.selectedIngredients.splice(index, 1);
     },
   },
-
-  watch: {
-    inputData() {
-      this.sortIngredients();
-      this.sortedIngredients = this.inputData.length !== 0 ? this.sortedIngredients : [];
-      this.isSelectorOpen = this.sortedIngredients.length > 0;
-    },
-  },
-
-  mounted() {
-    this.GET_INGREDIENTS_FROM_API();
-
-    document.addEventListener('click', ({target}) => {
-      if (!target.classList.contains('ingredients-selector__item')
-          && !target.classList.contains('ingredients-selector__input')
-          && !target.classList.contains('ingredients-selector__selected-remove-icon')) {
-        this.isSelectorOpen = false;
-      }
-    });
-  }
 }
 </script>
 
