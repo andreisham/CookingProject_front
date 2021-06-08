@@ -90,10 +90,10 @@ export default {
       this.getIngredientsFromApi();
     }
 
-    document.addEventListener('click', ({target}) => {
-      if (!target.classList.contains('ingredients-selector__item')
-          && !target.classList.contains('ingredients-selector__input')
-          && !target.classList.contains('ingredients-selector__selected-remove-icon')) {
+    document.addEventListener('click', ({ target }) => {
+      if (!target.classList.contains('v-ingredients-selector__item')
+          && !target.classList.contains('v-ingredients-selector__input')
+          && !target.classList.contains('v-ingredients-selector__selected-remove-icon')) {
         this.isSelectorOpen = false;
       }
     });
@@ -191,7 +191,7 @@ export default {
     transition: all .2s linear;
     overflow: auto;
     z-index: 30;
-    border: 1px solid $black;
+    border: 1px solid $light-grey;
     border-top: none;
     border-radius: 0 0 21px 21px;
     &::-webkit-scrollbar {
@@ -213,7 +213,7 @@ export default {
     width: 100%;
     padding: 10px;
     background-color: $white;
-    border-bottom: 1px solid $grey;
+    border-bottom: 1px solid $light-grey;
     font-size: 18px;
     color: $grey;
     transition: background-color .2s linear;
