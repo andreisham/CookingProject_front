@@ -58,12 +58,6 @@ export default {
     ]),
   },
 
-  watch: {
-    $route: function () {
-      this.getMealsFromApi();
-    },
-  },
-
   mounted() {
     this.getMealsFromApi();
   },

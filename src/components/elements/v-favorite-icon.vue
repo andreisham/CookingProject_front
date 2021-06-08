@@ -38,5 +38,10 @@ export default {
   .v-favorite-icon {
     color: $green;
     user-select: none;
+    transition: all .3s;
+    -webkit-tap-highlight-color:  transparent;
+    &:active {
+      transform: scale(.9);
+    }
   }
 </style>
