@@ -24,7 +24,6 @@
 
     </div>
 
-
     <h3 class="v-meals-item__ingredients-title">Ингредиенты:</h3>
     <ul class="v-meals-item__ingredients">
       <li class="v-meals-item__ingredient"
