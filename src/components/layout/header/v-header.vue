@@ -83,9 +83,21 @@ export default {
   }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 425px) {
   .v-header {
     background-position-y: -80px;
+    min-height: 170px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .v-header {
+    background-position-y: -80px;
+    min-height: 120px;
+
+    &__content {
+      padding: 10px 40px;
+    }
   }
 }
 </style>
