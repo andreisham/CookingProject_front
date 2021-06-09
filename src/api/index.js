@@ -1,5 +1,6 @@
 import Vue from 'vue';
-import axios from './axios';
+import axios from '../axios/axios';
+
 import ingredientsModule from './modules/ingredinets';
 import mealsModule from './modules/meals';
 import favoritesModule from './modules/favorites';

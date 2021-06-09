@@ -2,23 +2,19 @@ import Vue from 'vue';
 import App from './App.vue';
 
 // Extensions
-import router from './router/router';
-import store from './vuex/store';
-import axios from './api/axios';
-
-// Styles
-import 'material-design-icons-iconfont';
-import './assets/styles/styles.scss';
+import axios from './axios/axios';
 
 // Plugins
+import router from './router/router';
+import store from './vuex/store';
 import api from './api/index';
 
 Vue.config.productionTip = false;
 
 new Vue({
   render: h => h(App),
+  axios,
   router,
   store,
-  axios,
   api,
 }).$mount('#app')

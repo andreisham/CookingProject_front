@@ -34,6 +34,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import './assets/styles/styles';
+
 * {
   margin: 0;
   padding: 0;
