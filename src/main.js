@@ -4,16 +4,14 @@ import App from './App.vue';
 // Extensions
 import router from './router/router';
 import store from './vuex/store';
-import axios from './axios/axios';
+import axios from './api/axios';
 
 // Styles
 import 'material-design-icons-iconfont';
 import './assets/styles/styles.scss';
 
 // Plugins
-import Api from './plugins/api';
-
-Vue.use(Api);
+import api from './api/index';
 
 Vue.config.productionTip = false;
 
@@ -22,4 +20,5 @@ new Vue({
   router,
   store,
   axios,
+  api,
 }).$mount('#app')
