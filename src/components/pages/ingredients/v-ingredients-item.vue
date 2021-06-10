@@ -32,7 +32,7 @@ export default {
     gotToMealsPage() {
       this.$router.push({
         name: 'meals',
-        params: {ingredients: [ this.ingredientData.id ]},
+        params: { ingredients: [ this.ingredientData.id ] },
       })
     }
   },

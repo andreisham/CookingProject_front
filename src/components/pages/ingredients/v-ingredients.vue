@@ -2,11 +2,11 @@
   <div class="v-ingredients">
     <div class="v-ingredients__header">
       <h1 class="v-ingredients__h1">Ингредиенты</h1>
-      <span>
+      <div class="v-ingredients__close-box">
           <i class="material-icons v-ingredients__close-icon"
              @click="closeIngredients"
           >close</i>
-        </span>
+        </div>
     </div>
 
     <div class="v-ingredients__content">
@@ -70,13 +70,22 @@ export default {
   flex-direction: column;
 
   &__header {
+    margin-top: 35px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px 15px;
   }
 
+  &__close-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   &__close-icon {
+    font-size: 32px;
     cursor: pointer;
   }
 

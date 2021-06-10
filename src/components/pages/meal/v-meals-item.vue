@@ -20,6 +20,12 @@
               @clickFavoriteIcon="clickFavoriteIcon"
           />
         </div>
+        <div class="v-meals-item__box-item">
+          <i class="material-icons v-favorites-item__icon">comment</i>
+        </div>
+        <div class="v-meals-item__box-item">
+          <i class="material-icons v-favorites-item__icon">edit</i>
+        </div>
       </div>
 
     </div>
@@ -106,6 +112,7 @@ export default {
     display: flex;
     justify-content: space-between;
     transition: all .5s;
+    margin-bottom: 35px;
   }
 
   &__img {
@@ -115,9 +122,11 @@ export default {
 
   &__right {
     display: flex;
+    justify-content: space-between;
     flex-direction: column;
     align-items: center;
     padding: 5px 20px;
+    height: 300px;
   }
 
   &__box-item {
@@ -172,12 +181,13 @@ export default {
   .v-meals-item {
     &__box {
       flex-direction: column;
-      margin-bottom: 20px;
     }
 
     &__right {
       flex-direction: row;
       padding: 0;
+      width: 300px;
+      height: 50px;
     }
   }
 }
