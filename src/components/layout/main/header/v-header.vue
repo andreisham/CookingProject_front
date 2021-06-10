@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import vBurger from '../../elements/v-burger';
-import vNav from '../../../components/nav/v-nav';
+import vBurger from '../../../elements/v-burger';
+import vNav from '../../../nav/v-nav';
 
 export default {
   name: "v-header",
@@ -59,7 +59,7 @@ export default {
   display: flex;
   flex-direction: column;
   min-height: 200px;
-  background: url('../../../assets/img/backgr.svg') no-repeat;
+  background: url('../../../../assets/img/backgr.svg') no-repeat;
   background-size: cover;
   background-position-x: center;
   background-position-y: -100px;

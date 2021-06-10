@@ -1,19 +1,29 @@
 <template>
   <div id="app">
-    <v-main-layout />
+    <component :is="layout" />
   </div>
 </template>
 
 <script>
 
-import vMainLayout from './components/layout/v-main-layout';
-import { mapActions } from "vuex";
+import vMainLayout from './components/layout/main/v-main-layout';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'App',
 
   components: {
     vMainLayout,
+  },
+
+  computed: {
+    layout() {
+      return this.$route.meta.layout ?? vMainLayout;
+    }
+  },
+
+  mounted() {
+    this.getFavoritesFromApi();
   },
 
   methods: {
@@ -25,10 +35,6 @@ export default {
       const favorites = (await this.$api.favorites.get()).data;
       this.LOAD_FAVORITE_MEALS(favorites);
     }
-  },
-
-  mounted() {
-    this.getFavoritesFromApi();
   },
 }
 </script>
