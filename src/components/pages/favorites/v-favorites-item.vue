@@ -64,7 +64,10 @@ export default {
     },
 
     goToMealPage() {
-      this.$router.push({ name: 'meal', params: { id: this.favoritesItemData.id } });
+      this.$router.push({
+        name: 'meals',
+        params: { mealId: this.favoritesItemData.id },
+      });
     },
   },
 }

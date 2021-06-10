@@ -1,19 +1,19 @@
 <template>
   <div id="app">
-    <v-main-wrapper></v-main-wrapper>
+    <v-main-layout />
   </div>
 </template>
 
 <script>
 
-import vMainWrapper from './components/v-main-wrapper';
+import vMainLayout from './components/layout/v-main-layout';
 import { mapActions } from "vuex";
 
 export default {
   name: 'App',
 
   components: {
-    vMainWrapper,
+    vMainLayout,
   },
 
   methods: {

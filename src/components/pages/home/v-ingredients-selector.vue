@@ -112,7 +112,7 @@ export default {
     showMealsRecipes() {
       this.$router.push({
         name: 'meals',
-        params: {ingredients: this.selectedIngredients.map(item => item.id)},
+        params: { ingredients: this.selectedIngredients.map(item => item.id) },
       });
     },
 

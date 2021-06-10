@@ -37,6 +37,8 @@ export default {
   },
 
   props: {
+    mealId: Number,
+
     ingredients: {
       type: Array,
       default() {
@@ -74,8 +76,8 @@ export default {
       let meals = [];
       this.CLEAR_MEALS();
 
-      if (this.$route.params.id) {
-        meals = (await this.$api.meals.getById(this.$route.params.id)).data;
+      if (this.mealId) {
+        meals = (await this.$api.meals.getById(this.mealId)).data;
       } else if (this.ingredients.length > 0) {
         meals = (await this.$api.meals.getByIngredients(this.ingredients)).data;
       } else {

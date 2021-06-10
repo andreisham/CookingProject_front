@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import vSkeleton from '../components/layout/skeleton/v-skeleton';
 import vHome from '../components/pages/home/v-home';
 import vMeals from '../components/pages/meal/v-meals';
 import vIngredients from '../components/pages/ingredients/v-ingredients';
@@ -15,30 +14,19 @@ const router = new Router({
     routes: [
         {
             path: '/',
-            component: vSkeleton,
-            children: [
-                {
-                    path: '',
-                    name: 'home',
-                    component: vHome,
-                },
-                {
-                    path: 'meals',
-                    name: 'meals',
-                    component: vMeals,
-                    props: true,
-                },
-                {
-                    path: 'meals/:id',
-                    name: 'meal',
-                    component: vMeals,
-                },
-                {
-                    path: 'favorites',
-                    name: 'favorites',
-                    component: vFavorites,
-                }
-            ],
+            name: 'home',
+            component: vHome,
+        },
+        {
+            path: '/meals',
+            name: 'meals',
+            component: vMeals,
+            props: true,
+        },
+        {
+            path: '/favorites',
+            name: 'favorites',
+            component: vFavorites,
         },
         {
             path: '/ingredients',
