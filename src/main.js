@@ -7,9 +7,6 @@ import store from './vuex/store';
 import 'material-design-icons-iconfont';
 import './assets/styles/styles.scss';
 
-import env from '../.env.local';
-
-Vue.prototype.$env = env;
 Vue.config.productionTip = false;
 
 new Vue({
