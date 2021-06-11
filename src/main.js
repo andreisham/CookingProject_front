@@ -9,6 +9,8 @@ import router from './router/router';
 import store from './vuex/store';
 import api from './api/index';
 
+import Multiselect from 'vue-multiselect'
+
 Vue.config.productionTip = false;
 
 new Vue({
@@ -17,4 +19,5 @@ new Vue({
   router,
   store,
   api,
+  Multiselect,
 }).$mount('#app')
