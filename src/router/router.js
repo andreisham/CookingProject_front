@@ -5,6 +5,7 @@ import vSkeleton from '../components/layout/skeleton/v-skeleton';
 import vHome from '../components/pages/home/v-home';
 import vMeals from '../components/pages/meal/v-meals';
 import vIngredients from '../components/pages/ingredients/v-ingredients';
+import vAccount from '../components/pages/account/v-account';
 
 Vue.use(Router);
 
@@ -24,6 +25,12 @@ const router = new Router({
                     path: 'meals',
                     name: 'meals',
                     component: vMeals,
+                    props: true,
+                },
+                {
+                    path: '/account',
+                    name: 'account',
+                    component: vAccount,
                     props: true,
                 },
             ],
