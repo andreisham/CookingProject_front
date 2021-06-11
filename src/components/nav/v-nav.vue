@@ -41,9 +41,13 @@ export default {
           title: 'Случайный рецепт',
         },
         {
+          page: 'account',
+          title: 'Личный кабинет',
+        },
+        {
           page: 'favorites',
           title: 'Избранное',
-        }
+        },
       ],
     }
   },

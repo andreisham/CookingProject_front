@@ -3,13 +3,12 @@ import App from './App.vue';
 
 // Extensions
 import axios from './axios/axios';
+import multiselect from 'vue-multiselect'
 
 // Plugins
 import router from './router/router';
 import store from './vuex/store';
 import api from './api/index';
-
-import Multiselect from 'vue-multiselect'
 
 Vue.config.productionTip = false;
 
@@ -19,5 +18,5 @@ new Vue({
   router,
   store,
   api,
-  Multiselect,
+  multiselect,
 }).$mount('#app')

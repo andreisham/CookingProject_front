@@ -110,13 +110,13 @@ export default {
 
   &__name {
     margin-left: 25px;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: normal;
     cursor: pointer;
   }
 
   &__right {
-    flex: 1px;
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;

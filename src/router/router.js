@@ -4,8 +4,11 @@ import Router from 'vue-router';
 import vEmptyLayout from '../components/layout/empty/v-empty-layout';
 
 import vHome from '../components/pages/home/v-home';
+
 import vMeals from '../components/pages/meal/v-meals';
 import vIngredients from '../components/pages/ingredients/v-ingredients';
+
+import vAccount from '../components/pages/account/v-account';
 import vFavorites from '../components/pages/favorites/v-favorites';
 
 Vue.use(Router);
@@ -25,15 +28,21 @@ const router = new Router({
             props: true,
         },
         {
-            path: '/favorites',
-            name: 'favorites',
-            component: vFavorites,
-        },
-        {
             path: '/ingredients',
             name: 'ingredients',
             component: vIngredients,
             meta: { layout: vEmptyLayout },
+        },
+        {
+            path: '/account',
+            name: 'account',
+            component: vAccount,
+            props: true,
+        },
+        {
+            path: '/favorites',
+            name: 'favorites',
+            component: vFavorites,
         },
     ]
 });
