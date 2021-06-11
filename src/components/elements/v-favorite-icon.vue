@@ -40,6 +40,7 @@ export default {
     user-select: none;
     transition: all .3s;
     -webkit-tap-highlight-color:  transparent;
+    cursor: pointer;
     &:active {
       transform: scale(.9);
     }

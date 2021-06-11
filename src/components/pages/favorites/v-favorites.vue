@@ -1,7 +1,10 @@
 <template>
   <div class="v-favorites">
 
-    <div class="v-favorites__header">
+    <div
+        class="v-favorites__header"
+        v-if="FAVORITE_MEALS.length"
+    >
       <h1 class="v-favorites__h1">Избранное</h1>
     </div>
 
@@ -9,15 +12,14 @@
         class="v-favorites__items"
         v-if="FAVORITE_MEALS.length"
     >
-
       <v-favorites-item
           v-for="(item, index) in FAVORITE_MEALS"
           :key="item.id"
           :favoritesItemData="item"
           @removeFavoriteItem="removeFavoriteItem(index, item.id)"
       />
-
     </div>
+
     <div
         class="v-favorites__items v-favorites__items_empty"
         v-else

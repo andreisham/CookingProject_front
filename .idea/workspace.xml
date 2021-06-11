@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3d4d394b-fe0d-4576-be5c-daa995728fdf" name="Default Changelist" comment="" />
+    <list default="true" id="3d4d394b-fe0d-4576-be5c-daa995728fdf" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/components/elements/v-favorite-icon.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/elements/v-favorite-icon.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/favorites/v-favorites.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/favorites/v-favorites.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/meal/v-meals-item.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/meal/v-meals-item.vue" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,8 +17,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Vue Single File Component" />
         <option value="JavaScript File" />
+        <option value="Vue Single File Component" />
       </list>
     </option>
   </component>
@@ -33,7 +37,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../CookingProject" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -43,6 +47,9 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/layout/empty" />
+      <recent name="$PROJECT_DIR$/src/components/layout/main" />
+      <recent name="$PROJECT_DIR$/src/components/layout" />
       <recent name="$PROJECT_DIR$/src/axios" />
       <recent name="$PROJECT_DIR$/src/components/elements" />
     </key>
@@ -60,6 +67,7 @@
       <workItem from="1623047131827" duration="11394000" />
       <workItem from="1623133691235" duration="7272000" />
       <workItem from="1623236765183" duration="601000" />
+      <workItem from="1623326629564" duration="7718000" />
     </task>
     <servers />
   </component>

@@ -161,7 +161,7 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    height: 50px;
+    padding: 10px 0;
     color: #434343;
     font-size: 20px;
     font-weight: 400;
