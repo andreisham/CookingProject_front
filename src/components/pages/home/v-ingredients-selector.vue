@@ -1,23 +1,25 @@
 <template>
   <div class="v-ingredients-selector">
     <label class="typo__label"></label>
-    <multiselect v-model="value"
-                 id="ajax"
-                 tag-placeholder="Select ingredients"
-                 placeholder="Select ingredients"
-                 label="name"
-                 track-by="name"
-                 :options="INGREDIENTS"
-                 :multiple="true"
-                 :loading="isLoading"
-                 :clear-on-select="false"
-                 @open="getIngredientsFromApi"
-                 @select="selectIngredient"
-                 @remove="removeIngredient"
-                 :close-on-select="false"
-                 :preserve-search="true"
-                 :hideSelected="true"
-                 selectLabel=""
+    <multiselect
+        v-model="value"
+        id="ajax"
+        :placeholder="placeholder"
+        label="name"
+        track-by="name"
+        :options="INGREDIENTS"
+        :multiple="true"
+        :loading="isLoading"
+        :clear-on-select="false"
+        :close-on-select="false"
+        :preserve-search="true"
+        :hideSelected="true"
+        open-direction="bottom"
+        selectLabel=""
+        @open="openSelector"
+        @close="closeSelector"
+        @select="selectIngredient"
+        @remove="removeIngredient"
     >
     </multiselect>
     <div
@@ -36,10 +38,8 @@
 
 <script>
 
-
 import {mapActions, mapGetters} from 'vuex';
 import Multiselect from 'vue-multiselect'
-
 
 export default {
   name: "v-ingredients-selector",
@@ -49,8 +49,8 @@ export default {
   data() {
     return {
       value: [],
-      options: [],
       selectedIngredients: [],
+      isSelectorOpen: false,
       isLoading: false,
     }
   },
@@ -59,6 +59,10 @@ export default {
     ...mapGetters([
       'INGREDIENTS',
     ]),
+
+    placeholder() {
+      return !this.isSelectorOpen ? 'Select ingredients' : '';
+    },
   },
 
   watch: {
@@ -72,13 +76,23 @@ export default {
       'LOAD_INGREDIENTS',
     ]),
 
-    async getIngredientsFromApi() {
+    async openSelector() {
+      this.isSelectorOpen = !this.isSelectorOpen;
       if (this.INGREDIENTS.length === 0) {
-        this.isLoading = true;
-        const ingredients = (await this.$api.ingredients.get()).data;
+        let ingredients = await this.getIngredientsFromApi();
         this.LOAD_INGREDIENTS(ingredients);
-        this.isLoading = false;
       }
+    },
+
+    closeSelector() {
+      this.isSelectorOpen = !this.isSelectorOpen;
+    },
+
+    async getIngredientsFromApi() {
+      this.isLoading = true;
+      let ingredients = (await this.$api.ingredients.get()).data;
+      this.isLoading = false;
+      return ingredients;
     },
 
     selectIngredient(ingredient) {
@@ -100,10 +114,14 @@ export default {
   },
 }
 </script>
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+
 <style lang="scss">
+@import '~vue-multiselect/dist/vue-multiselect.min.css';
+
 .multiselect {
+  max-width: 360px;
   text-align: center;
+  position: absolute;
 
   &__placeholder {
     font-size: 18px;
@@ -111,10 +129,36 @@ export default {
 
   &__tags {
     border-radius: 25px;
+    box-sizing: border-box;
+  }
+
+  &__tag {
+    border-radius: 25px;
+    background-color: $green;
+  }
+
+  &__tag-icon:hover {
+    background-color: $green-lighten-1;
+  }
+
+  &__tags-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 0 15px;
+  }
+
+  &__input {
+    padding-left: 15px;
   }
 
   &__content-wrapper {
     border-radius: 0 0 25px 25px;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
   }
 }
 
@@ -130,13 +174,13 @@ export default {
   }
 
   &__submit {
-    margin-top: 40px;
-    color: #fefefe;
+    margin-top: 60px;
+    color: $white;
     font-size: 24px;
     font-weight: 700;
     text-transform: uppercase;
     width: 100%;
-    height: 61px;
+    height: 55px;
     border-radius: 21px;
     background-color: rgb(43, 153, 91);
     border: none;
@@ -144,7 +188,7 @@ export default {
     transition: background-color .2s linear;
 
     &:hover {
-      background-color: rgb(75, 183, 141);
+      background-color: $green-lighten-1;
     }
   }
 }
@@ -159,8 +203,10 @@ export default {
   }
 
   .multiselect {
+    max-width: 250px;
+
     &__content {
-      width: 250px;
+      width: 200px;
     }
   }
 }
