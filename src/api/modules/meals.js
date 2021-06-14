@@ -6,6 +6,12 @@ export default function (axios) {
             });
         },
 
+        getCountByIngredients(ingredients) {
+            return axios.get('/api/meals/count', {
+                params: { ingredients }
+            });
+        },
+
         getById(id) {
             return axios.get('/api/meals/' + id);
         },

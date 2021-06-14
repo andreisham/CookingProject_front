@@ -1,12 +1,19 @@
 <template>
   <div class="v-ingredients-selector">
-    <label class="typo__label"></label>
+
+    <div
+        class="v-ingredients-selector__search-result"
+        v-if="selectedIngredients.length > 0"
+    >
+      Found {{ recipesCount }} recipes
+    </div>
+
     <multiselect
         v-model="value"
         id="ajax"
         :placeholder="placeholder"
         label="name"
-        track-by="name"
+        track-by="id"
         :options="INGREDIENTS"
         :multiple="true"
         :loading="isLoading"
@@ -22,16 +29,13 @@
         @remove="removeIngredient"
     >
     </multiselect>
-    <div
-        class="v-ingredients-selector__selected-items"
-        ref="selected-items"
-    >
-    </div>
+
     <button
         class="waves-effect waves-light btn v-ingredients-selector__submit"
         type="submit"
         @click="showMealsRecipes"
-    >show
+    >
+      show
     </button>
   </div>
 </template>
@@ -52,6 +56,7 @@ export default {
       selectedIngredients: [],
       isSelectorOpen: false,
       isLoading: false,
+      recipesCount: 0,
     }
   },
 
@@ -69,6 +74,13 @@ export default {
     inputData() {
       this.sortedIngredients = this.inputData.length !== 0 ? this.sortedIngredients : [];
     },
+
+    selectedIngredients() {
+      console.log(this.selectedIngredients)
+      if (this.selectedIngredients.length > 0) {
+        this.getRecipesCount(this.selectedIngredients);
+      }
+    }
   },
 
   methods: {
@@ -84,10 +96,6 @@ export default {
       }
     },
 
-    closeSelector() {
-      this.isSelectorOpen = !this.isSelectorOpen;
-    },
-
     async getIngredientsFromApi() {
       this.isLoading = true;
       let ingredients = (await this.$api.ingredients.get()).data;
@@ -97,18 +105,27 @@ export default {
 
     selectIngredient(ingredient) {
       if (!this.selectedIngredients.includes(ingredient)) {
-        this.selectedIngredients.push(ingredient);
+        this.selectedIngredients.push(ingredient.id);
       }
     },
 
-    removeIngredient(index) {
+    closeSelector() {
+      this.isSelectorOpen = !this.isSelectorOpen;
+    },
+
+    async getRecipesCount(ingredients) {
+      this.recipesCount = (await this.$api.meals.getCountByIngredients(ingredients)).data.count;
+    },
+
+    removeIngredient(ingredient) {
+      let index = this.selectedIngredients.findIndex(item => item === ingredient.id);
       this.selectedIngredients.splice(index, 1);
     },
 
     showMealsRecipes() {
       this.$router.push({
         name: 'meals',
-        params: {ingredients: this.selectedIngredients.map(item => item.id)},
+        params: { ingredients: this.selectedIngredients },
       });
     },
   },
@@ -118,63 +135,67 @@ export default {
 <style lang="scss">
 @import '~vue-multiselect/dist/vue-multiselect.min.css';
 
-.multiselect {
-  max-width: 360px;
-  text-align: center;
-  position: absolute;
-
-  &__placeholder {
-    font-size: 18px;
-  }
-
-  &__tags {
-    border-radius: 25px;
-    box-sizing: border-box;
-  }
-
-  &__tag {
-    border-radius: 25px;
-    background-color: $green;
-  }
-
-  &__tag-icon:hover {
-    background-color: $green-lighten-1;
-  }
-
-  &__tags-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    padding: 0 15px;
-  }
-
-  &__input {
-    padding-left: 15px;
-  }
-
-  &__content-wrapper {
-    border-radius: 0 0 25px 25px;
-
-    &::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-    }
-  }
-}
-
 .v-ingredients-selector {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 360px;
   transition: all .5s;
 
-  &__selected-items {
+  &__search-result {
+    margin-left: 45px;
+    margin-bottom: 5px;
+    width: 100%;
+    font-size: 12px;
+    font-style: italic;
+    color: $grey;
+  }
+
+  .multiselect {
     width: 400px;
+    text-align: center;
+
+    &__placeholder {
+      font-size: 18px;
+    }
+
+    &__tags {
+      border-radius: 25px;
+      box-sizing: border-box;
+    }
+
+    &__tag {
+      border-radius: 25px;
+      font-size: 12px;
+      background-color: $green-lighten-1;
+    }
+
+    &__tag-icon:hover {
+      background-color: $green;
+    }
+
+    &__tags-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      padding: 0 5px;
+    }
+
+    &__input {
+      padding-left: 10px;
+    }
+
+    &__content-wrapper {
+      border-radius: 0 0 25px 25px;
+
+      &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+      }
+    }
   }
 
   &__submit {
-    margin-top: 60px;
+    margin-top: 20px;
     color: $white;
     font-size: 24px;
     font-weight: 700;
