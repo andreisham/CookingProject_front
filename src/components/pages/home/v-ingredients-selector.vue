@@ -1,6 +1,5 @@
 <template>
   <div class="v-ingredients-selector">
-
     <div
         class="v-ingredients-selector__search-result"
         v-if="selectedIngredients.length > 0"
@@ -10,7 +9,6 @@
 
     <multiselect
         v-model="value"
-        id="ajax"
         :placeholder="placeholder"
         label="name"
         track-by="id"
@@ -28,14 +26,6 @@
         @select="selectIngredient"
         @remove="removeIngredient"
     />
-
-    <button
-        class="waves-effect waves-light btn v-ingredients-selector__submit"
-        type="submit"
-        @click="showMeals"
-    >
-      show
-    </button>
   </div>
 </template>
 
@@ -87,6 +77,7 @@ export default {
     ]),
 
     async openSelector() {
+      this.$emit('open');
       this.isSelectorOpen = !this.isSelectorOpen;
       if (this.INGREDIENTS.length === 0) {
         let ingredients = await this.getIngredientsFromApi();
@@ -104,6 +95,7 @@ export default {
     selectIngredient(ingredient) {
       if (!this.selectedIngredients.includes(ingredient)) {
         this.selectedIngredients.push(ingredient.id);
+        this.$emit('select', {ingredients: this.selectedIngredients});
       }
     },
 
@@ -119,17 +111,19 @@ export default {
       let index = this.selectedIngredients.findIndex(item => item === ingredient.id);
       this.selectedIngredients.splice(index, 1);
     },
-
-    showMeals() {
-      this.$router.push({
-        name: 'meals',
-        params: { ingredients: this.selectedIngredients },
-      });
-    },
   },
 }
 </script>
 
 <style lang="scss">
-
+.v-ingredients-selector {
+  &__search-result {
+    margin-left: 45px;
+    margin-bottom: 5px;
+    width: 100%;
+    font-size: 12px;
+    font-style: italic;
+    color: $grey;
+  }
+}
 </style>

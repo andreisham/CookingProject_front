@@ -47,7 +47,6 @@ export default {
 
   &__selector {
     margin-top: 30px;
-    margin-bottom: 80px;
   }
 }
 </style>

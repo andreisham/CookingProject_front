@@ -1,31 +1,20 @@
 <template>
   <div class="v-meals-selector">
-    <div class="v-ingredients-selector">
-      <multiselect
-          v-model="value"
-          id="ajax"
-          :placeholder="placeholder"
-          label="name"
-          track-by="id"
-          :options="MEALS_NAMES_LIST"
-          :loading="isLoading"
-          :preserve-search="true"
-          :hideSelected="true"
-          open-direction="bottom"
-          selectLabel=""
-          @open="openSelector"
-          @select="selectMeal"
-          @close="closeSelector"
-      />
-
-      <button
-          class="waves-effect waves-light btn v-ingredients-selector__submit"
-          type="submit"
-          @click="showMeals"
-      >
-        show
-      </button>
-    </div>
+    <multiselect
+        v-model="value"
+        :placeholder="placeholder"
+        label="name"
+        track-by="id"
+        :options="MEALS_NAMES_LIST"
+        :loading="isLoading"
+        :preserve-search="true"
+        :hideSelected="true"
+        open-direction="bottom"
+        selectLabel=""
+        @open="openSelector"
+        @select="selectMeal"
+        @close="closeSelector"
+    />
   </div>
 </template>
 
@@ -51,7 +40,7 @@ export default {
 
   computed: {
     ...mapGetters([
-        'MEALS_NAMES_LIST',
+      'MEALS_NAMES_LIST',
     ]),
 
     placeholder() {
@@ -61,7 +50,7 @@ export default {
 
   methods: {
     ...mapActions([
-       'LOAD_MEALS_NAMES_LIST',
+      'LOAD_MEALS_NAMES_LIST',
     ]),
 
     async openSelector() {
@@ -81,19 +70,12 @@ export default {
 
     selectMeal(meal) {
       this.value = meal;
-        console.log(this.value.name);
+      this.$emit('select', {mealId: this.value.id ?? null});
     },
 
     closeSelector() {
       this.isSelectorOpen = !this.isSelectorOpen;
     },
-
-    showMeals() {
-      this.$router.push({
-        name: 'meals',
-        params: { mealId: this.value.id ?? null },
-      });
-    }
   },
 }
 </script>

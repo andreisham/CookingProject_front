@@ -1,9 +1,28 @@
 <template>
   <div class="v-selector">
-    <component
-        :is="currentSelector"
-        class="v-home__selector"
-    />
+    <agile
+        class="v-selector__slider v-selector__slider_open"
+        :options="options"
+    >
+      <div
+          class="slide"
+          v-for="(selector, index) in selectors"
+          :key="index"
+      >
+        <component
+            :is="selector"
+            @select="setSelectedItems"
+        />
+      </div>
+    </agile>
+
+    <button
+        class="waves-effect waves-light btn v-selector__submit"
+        type="submit"
+        @click="showMeals"
+    >
+      show
+    </button>
   </div>
 </template>
 
@@ -15,33 +34,48 @@ export default {
   name: "v-selector",
 
   components: {
-    vIngredientsSelector, vMealsSelector,
+    vIngredientsSelector,
+    vMealsSelector,
   },
 
   data() {
     return {
-      currentSelector: vIngredientsSelector,
+      selectors: [
+        vIngredientsSelector,
+        vMealsSelector,
+      ],
+
+      selected: null,
+
+      options: {
+        dots: false,
+        navButtons: false,
+      },
     }
   },
+
+  methods: {
+    setSelectedItems(items) {
+      this.selected = items;
+    },
+
+    showMeals() {
+      this.$router.push({ name: 'meals', params: this.selected });
+    }
+  }
 }
 </script>
 
 <style lang="scss">
 @import '~vue-multiselect/dist/vue-multiselect.min.css';
 
-.v-ingredients-selector {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: all .5s;
+.v-selector {
+  width: 360px;
+  height: 350px;
+  overflow: hidden;
 
-  &__search-result {
-    margin-left: 45px;
-    margin-bottom: 5px;
-    width: 100%;
-    font-size: 12px;
-    font-style: italic;
-    color: $grey;
+  .agile__list {
+    overflow: visible;
   }
 
   .multiselect {
@@ -67,6 +101,7 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+
       &:hover {
         background-color: $green;
       }
@@ -85,6 +120,7 @@ export default {
 
     &__content-wrapper {
       border-radius: 0 0 25px 25px;
+
       &::-webkit-scrollbar {
         width: 0;
         height: 0;
@@ -93,7 +129,6 @@ export default {
 
     &__option {
       white-space: pre-wrap;
-
     }
   }
 
@@ -118,7 +153,7 @@ export default {
 }
 
 @media screen and (max-width: 375px) {
-  .v-ingredients-selector {
+  .v-selector {
     max-width: 250px;
 
     &__selected-items {
