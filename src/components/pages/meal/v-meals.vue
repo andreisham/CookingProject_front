@@ -75,7 +75,6 @@ export default {
     async getMealsFromApi() {
       let meals = [];
       this.CLEAR_MEALS();
-
       if (this.mealId) {
         meals = (await this.$api.meals.getById(this.mealId)).data;
       } else if (this.ingredients.length > 0) {
@@ -83,7 +82,6 @@ export default {
       } else {
         meals = (await this.$api.meals.getRandom()).data;
       }
-
       this.LOAD_MEALS(meals);
     },
 

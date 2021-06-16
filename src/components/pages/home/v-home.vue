@@ -4,19 +4,19 @@
       <h1 class="v-home__h1">What Should I Cook?</h1>
     </div>
 
-    <v-ingredients-selector class="v-home__selector"/>
+    <v-selector class="v-home__selector"/>
 
   </main>
 </template>
 
 <script>
-import vIngredientsSelector from './v-ingredients-selector';
+import vSelector from './v-selector';
 
 export default {
   name: "v-home",
 
   components: {
-    vIngredientsSelector,
+    vSelector,
   },
 }
 </script>
@@ -46,6 +46,7 @@ export default {
   }
 
   &__selector {
+    margin-top: 30px;
     margin-bottom: 80px;
   }
 }

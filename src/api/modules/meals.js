@@ -16,6 +16,10 @@ export default function (axios) {
             return axios.get('/api/meals/' + id);
         },
 
+        getList() {
+            return axios.get('/api/meals/list');
+        },
+
         getRandom() {
             return axios.get('/api/meal/random');
         }
