@@ -1,5 +1,8 @@
 <template>
-  <header class="v-header">
+  <header
+      class="v-header"
+      v-touch:swipe.bottom="openMenu"
+  >
 
     <div class="v-header__content">
       <router-link :to="{name: 'home'}">
@@ -19,6 +22,7 @@
     <v-nav
         :isMenuOpen="isMenuOpen"
         @selectRoute="toggleMenu"
+        @close="closeMenu"
     />
 
   </header>
@@ -43,13 +47,21 @@ export default {
   },
 
   methods: {
+    logoClick() {
+      this.isMenuOpen = false;
+    },
+
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
     },
 
-    logoClick() {
+    openMenu() {
+      this.isMenuOpen = true;
+    },
+
+    closeMenu() {
       this.isMenuOpen = false;
-    }
+    },
   }
 }
 </script>
