@@ -2,6 +2,7 @@
   <div
       class="v-nav"
       :class="{ active: this.isMenuOpen }"
+      v-touch:swipe.up="close"
   >
     <div class="v-nav__menu">
         <router-link
@@ -44,6 +45,10 @@ export default {
           page: 'account',
           title: 'Личный кабинет',
         },
+        {
+          page: 'favorites',
+          title: 'Избранное',
+        },
       ],
     }
   },
@@ -51,6 +56,10 @@ export default {
   methods: {
     selectRoute() {
       this.$emit('selectRoute');
+    },
+
+    close() {
+      this.$emit('close');
     }
   },
 }

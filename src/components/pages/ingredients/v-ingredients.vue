@@ -2,20 +2,20 @@
   <div class="v-ingredients">
     <div class="v-ingredients__header">
       <h1 class="v-ingredients__h1">Ингредиенты</h1>
-      <span>
+      <div class="v-ingredients__close-box">
           <i class="material-icons v-ingredients__close-icon"
              @click="closeIngredients"
           >close</i>
-        </span>
+        </div>
     </div>
 
     <div class="v-ingredients__content">
       <div class="v-ingredients__list">
 
         <v-ingredients-item
-          v-for="ingredient in INGREDIENTS"
-          :key="ingredient.id"
-          :ingredientData="ingredient"
+            v-for="ingredient in INGREDIENTS"
+            :key="ingredient.id"
+            :ingredientData="ingredient"
         />
 
       </div>
@@ -41,42 +41,56 @@ export default {
     ]),
   },
 
-  methods: {
-    ...mapActions([
-        'GET_INGREDIENTS_FROM_API',
-    ]),
-
-    closeIngredients() {
-      this.$router.push('/');
+  mounted() {
+    if (this.INGREDIENTS.length === 0) {
+      this.getIngredientsFromApi();
     }
   },
 
-  mounted() {
-    if (this.INGREDIENTS.length === 0) {
-      this.GET_INGREDIENTS_FROM_API();
+  methods: {
+    ...mapActions([
+      'LOAD_INGREDIENTS',
+    ]),
+
+    async getIngredientsFromApi() {
+      const ingredients = (await this.$api.ingredients.get()).data;
+      this.LOAD_INGREDIENTS(ingredients);
+    },
+
+    closeIngredients() {
+      this.$router.push('/');
     }
   },
 }
 </script>
 
 <style lang="scss">
-  .v-ingredients {
+.v-ingredients {
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    margin-top: 35px;
+    margin-bottom: 20px;
     display: flex;
-    flex-direction: column;
-
-    &__header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 5px 15px;
-    }
-
-    &__close-icon {
-      cursor: pointer;
-    }
-
-    &__content {
-      box-sizing: content-box;
-    }
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 15px;
   }
+
+  &__close-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__close-icon {
+    font-size: 32px;
+    cursor: pointer;
+  }
+
+  &__content {
+    box-sizing: content-box;
+  }
+}
 </style>

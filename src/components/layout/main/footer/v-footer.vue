@@ -11,7 +11,7 @@ export default {
 <style lang="scss">
 .v-footer {
   flex: 0 0 auto;
-  background: url('../../../assets/img/footer.png') no-repeat;
+  background: url('../../../../assets/img/footer.png') no-repeat;
   background-position-x: center;
   background-position-y: 15px;
   background-size: cover;

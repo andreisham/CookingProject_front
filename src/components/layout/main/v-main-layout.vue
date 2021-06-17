@@ -1,6 +1,6 @@
 <template>
-  <div class="v-skeleton">
-    <div class="v-skeleton__container">
+  <div class="v-main-layout">
+    <div class="v-main-layout__container">
       <v-header></v-header>
       <router-view></router-view>
     </div>
@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import vHeader from '../../layout/header/v-header';
-import vFooter from '../../layout/footer/v-footer';
+import vHeader from './header/v-header';
+import vFooter from './footer/v-footer';
 
 export default {
-  name: "v-skeleton",
+  name: "v-main-layout",
   components: {
     vHeader,
     vFooter,
@@ -22,7 +22,9 @@ export default {
 </script>
 
 <style lang="scss">
-  .v-skeleton {
+  .v-main-layout {
+    margin: 0 auto;
+    max-width: $mobile-max-width;
     height: 100vh;
     display: flex;
     flex-direction: column;

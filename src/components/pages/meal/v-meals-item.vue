@@ -1,38 +1,76 @@
 <template>
   <div class="v-meals-item">
-    <h2 class="heading">{{ mealData.name | ucfirst }}</h2>
+    <h2 class="v-meals-item__header">{{ mealData.name | ucfirst }}</h2>
 
-    <img
-        class="v-meals-item__img"
-        :src="mealData.api_img"
-        alt="img"
-    >
+    <div class="v-meals-item__box">
 
-    <h3>Ингредиенты:</h3>
-    <ul class="recipe">
-      <li class="recipe__list"
+      <div class="v-meals-item__left">
+        <img
+            class="v-meals-item__img"
+            :src="mealData.api_img"
+            alt="img"
+        >
+      </div>
+
+      <div class="v-meals-item__right">
+        <div class="v-meals-item__box-item">
+          <v-favorite-icon
+              class="v-favorites-item__icon"
+              :isSelected="isFavorite"
+              @clickFavoriteIcon="clickFavoriteIcon"
+          />
+        </div>
+        <div class="v-meals-item__box-item">
+          <i class="material-icons v-favorites-item__icon">comment</i>
+        </div>
+        <div class="v-meals-item__box-item">
+          <i class="material-icons v-favorites-item__icon">edit</i>
+        </div>
+      </div>
+
+    </div>
+
+    <h3 class="v-meals-item__ingredients-title">Ингредиенты:</h3>
+    <ul class="v-meals-item__ingredients">
+      <li class="v-meals-item__ingredient"
           v-for="(item, index) in mealData.components_measure"
           :key="index"
       >
-        <img src="../../../assets/img/list-style.png" class="recipe__img" alt="img">
+        <img
+            class="v-meals-item__ingredient-img"
+            src="../../../assets/img/list-style.png"
+            alt="img"
+        >
         {{ showComponentMeasure(index, item) }}
       </li>
     </ul>
 
-    <h3>Рецепт приготовления:</h3>
-    <p>{{ mealData.instruction }}</p>
+    <h3 class="v-meals-item__recipe-title">Рецепт приготовления:</h3>
+    <p class="v-meals-item__recipe-desc">{{ mealData.instruction }}</p>
 
   </div>
 </template>
 
 <script>
-
 import ucfirst from "../../../filters/ucfirst";
+import handleJsonResponseValue from '../../../helpers/handleJsonResponseValue';
+import vFavoriteIcon from '../../elements/v-favorite-icon';
 
 export default {
   name: "v-meals-item",
 
+  components: {
+    vFavoriteIcon,
+  },
+
   props: {
+    isFavorite: {
+      type: Boolean,
+      default() {
+        return false;
+      }
+    },
+
     mealData: {
       type: Object,
       default() {
@@ -41,25 +79,22 @@ export default {
     }
   },
 
-  methods: {
-    parseJson(value) {
-      if (typeof value === 'string') {
-        return JSON.parse(value);
-      }
-      return value;
-    },
-
-    showComponentMeasure(component, measure) {
-      return component + (measure.length > 0 ? (' - ' + measure) : '');
-    }
+  filters: {
+    ucfirst,
   },
 
   mounted() {
-    this.$set(this.mealData, 'components_measure', this.parseJson(this.mealData.components_measure));
+    this.$set(this.mealData, 'components_measure', handleJsonResponseValue(this.mealData.components_measure));
   },
 
-  filters: {
-    ucfirst,
+  methods: {
+    showComponentMeasure(component, measure) {
+      return component + (measure.length > 0 ? (' - ' + measure) : '');
+    },
+
+    clickFavoriteIcon() {
+      this.$emit('clickFavoriteIcon', this.mealData);
+    },
   },
 }
 </script>
@@ -68,28 +103,93 @@ export default {
 .v-meals-item {
   margin-bottom: 30px;
 
+  &__header {
+    margin-top: 35px;
+    margin-bottom: 35px;
+  }
+
+  &__box {
+    display: flex;
+    justify-content: space-between;
+    transition: all .5s;
+    margin-bottom: 35px;
+  }
+
   &__img {
     width: 300px;
+    margin-bottom: 30px;
   }
-}
 
-.recipe {
-  padding-left: 0;
+  &__right {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 20px;
+    height: 300px;
+  }
 
-  .recipe__list {
+  &__box-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    background-color: $grey-lighten-5;
+    transition: all .3s;
+
+    &:hover {
+      background-color: $grey-lighten-3;
+    }
+
+    .v-favorites-item__icon {
+      font-size: 40px;
+      cursor: pointer;
+    }
+  }
+
+  &__ingredients {
+    padding-left: 0;
+    margin-bottom: 35px;
+  }
+
+  &__ingredients-title {
+    margin-bottom: 15px;
+  }
+
+  &__ingredient {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    height: 50px;
+    padding: 10px 0;
     color: #434343;
     font-size: 20px;
     font-weight: 400;
     border-bottom: .5px solid lightgray;
   }
 
-  &__img {
+  &__ingredient-img {
     margin-right: 10px;
   }
 
+  &__recipe-title {
+    margin-bottom: 15px;
+  }
 }
+
+@media screen and (max-width: 450px) {
+  .v-meals-item {
+    &__box {
+      flex-direction: column;
+    }
+
+    &__right {
+      flex-direction: row;
+      padding: 0;
+      width: 300px;
+      height: 50px;
+    }
+  }
+}
+
 </style>

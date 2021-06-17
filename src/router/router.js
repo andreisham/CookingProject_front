@@ -1,11 +1,15 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import vSkeleton from '../components/layout/skeleton/v-skeleton';
+import vEmptyLayout from '../components/layout/empty/v-empty-layout';
+
 import vHome from '../components/pages/home/v-home';
+
 import vMeals from '../components/pages/meal/v-meals';
 import vIngredients from '../components/pages/ingredients/v-ingredients';
+
 import vAccount from '../components/pages/account/v-account';
+import vFavorites from '../components/pages/favorites/v-favorites';
 
 Vue.use(Router);
 
@@ -14,31 +18,31 @@ const router = new Router({
     routes: [
         {
             path: '/',
-            component: vSkeleton,
-            children: [
-                {
-                    path: '',
-                    name: 'home',
-                    component: vHome,
-                },
-                {
-                    path: 'meals',
-                    name: 'meals',
-                    component: vMeals,
-                    props: true,
-                },
-                {
-                    path: '/account',
-                    name: 'account',
-                    component: vAccount,
-                    props: true,
-                },
-            ],
+            name: 'home',
+            component: vHome,
+        },
+        {
+            path: '/meals',
+            name: 'meals',
+            component: vMeals,
+            props: true,
         },
         {
             path: '/ingredients',
             name: 'ingredients',
             component: vIngredients,
+            meta: { layout: vEmptyLayout },
+        },
+        {
+            path: '/account',
+            name: 'account',
+            component: vAccount,
+            props: true,
+        },
+        {
+            path: '/favorites',
+            name: 'favorites',
+            component: vFavorites,
         },
     ]
 });

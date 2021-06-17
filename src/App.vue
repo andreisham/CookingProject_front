@@ -1,26 +1,52 @@
 <template>
   <div id="app">
-    <v-main-wrapper></v-main-wrapper>
+    <component :is="layout" />
   </div>
 </template>
 
 <script>
 
-import vMainWrapper from './components/v-main-wrapper';
+import vMainLayout from './components/layout/main/v-main-layout';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'App',
+
   components: {
-    vMainWrapper,
-  }
+    vMainLayout,
+  },
+
+  computed: {
+    layout() {
+      return this.$route.meta.layout ?? vMainLayout;
+    }
+  },
+
+  mounted() {
+    this.getFavoritesFromApi();
+  },
+
+  methods: {
+    ...mapActions([
+       'LOAD_FAVORITE_MEALS',
+    ]),
+
+    async getFavoritesFromApi() {
+      const favorites = (await this.$api.favorites.get()).data;
+      this.LOAD_FAVORITE_MEALS(favorites);
+    }
+  },
 }
 </script>
 
 <style lang="scss">
+@import './assets/styles/styles';
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color:  transparent;
 }
 
 body {
@@ -39,4 +65,5 @@ li {
 a {
   text-decoration: none;
 }
+
 </style>

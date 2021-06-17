@@ -1,5 +1,8 @@
 <template>
-  <header class="v-header">
+  <header
+      class="v-header"
+      v-touch:swipe.bottom="openMenu"
+  >
 
     <div class="v-header__content">
       <router-link :to="{name: 'home'}">
@@ -19,14 +22,15 @@
     <v-nav
         :isMenuOpen="isMenuOpen"
         @selectRoute="toggleMenu"
+        @close="closeMenu"
     />
 
   </header>
 </template>
 
 <script>
-import vBurger from '../../elements/burger/v-burger';
-import vNav from '../../../components/nav/v-nav';
+import vBurger from '../../../elements/v-burger';
+import vNav from '../../../nav/v-nav';
 
 export default {
   name: "v-header",
@@ -43,13 +47,21 @@ export default {
   },
 
   methods: {
+    logoClick() {
+      this.isMenuOpen = false;
+    },
+
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
     },
 
-    logoClick() {
+    openMenu() {
+      this.isMenuOpen = true;
+    },
+
+    closeMenu() {
       this.isMenuOpen = false;
-    }
+    },
   }
 }
 </script>
@@ -59,7 +71,7 @@ export default {
   display: flex;
   flex-direction: column;
   min-height: 200px;
-  background: url('../../../assets/img/backgr.svg') no-repeat;
+  background: url('../../../../assets/img/backgr.svg') no-repeat;
   background-size: cover;
   background-position-x: center;
   background-position-y: -100px;
@@ -83,9 +95,21 @@ export default {
   }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 425px) {
   .v-header {
     background-position-y: -80px;
+    min-height: 170px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .v-header {
+    background-position-y: -80px;
+    min-height: 120px;
+
+    &__content {
+      padding: 10px 40px;
+    }
   }
 }
 </style>

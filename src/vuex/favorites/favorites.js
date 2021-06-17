@@ -4,8 +4,7 @@ import getters from './getters';
 
 export default {
     state: {
-        meals: [],
-        list: [],
+        favorites: [],
     },
     mutations,
     actions,

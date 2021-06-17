@@ -1,35 +1,16 @@
-import axios from "axios";
-
 export default {
-    GET_MEALS_FROM_API_BY_INGREDIENTS({commit}, ingredients) {
-        return axios.get('/api/meals', {
-            params: {
-                ingredient: ingredients,
-            },
-        })
-            .then(response => {
-                commit('SET_MEALS_TO_STATE', response.data);
-                return response;
-            })
-            .catch(error => {
-                console.log(error);
-                return error;
-            })
+    LOAD_MEALS({ commit }, meals) {
+        if (!Array.isArray(meals)) {
+            meals = [ meals ];
+        }
+        commit('SET_MEALS_TO_STATE', meals);
     },
 
-    GET_RANDOM_MEAL_FROM_API({commit}) {
-        return axios.get('/api/meal/random')
-            .then(response => {
-                commit('SET_MEALS_TO_STATE', response.data);
-                return response;
-            })
-            .catch(error => {
-                console.log(error);
-                return error;
-            })
+    LOAD_MEALS_NAMES_LIST({ commit }, list) {
+        commit('SET_MEALS_NAMES_LIST_TO_STATE', list);
     },
 
-    CLEAR_MEALS({commit}) {
+    CLEAR_MEALS({ commit }) {
         commit('CLEAR_MEALS_STATE');
     },
 };

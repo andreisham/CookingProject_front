@@ -1,15 +1,32 @@
 <template>
   <main class="v-meals">
+    <div
+        class="v-meals__items"
+        v-if="MEALS.length > 0"
+    >
       <v-meals-item
           v-for="meal in MEALS"
           :key="meal.id"
-          :mealData=meal
+          :mealData="meal"
+          :isFavorite="isMealInFavorites(meal.id)"
+          @clickFavoriteIcon="clickFavoriteIcon"
       />
+    </div>
+
+    <div
+        class="v-meals__items"
+        v-else
+    >
+      <p class="v-meals__empty-alert">Recipe list is empty...</p>
+    </div>
+
   </main>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
+import findArrayIndexByItemProperty from '../../../helpers/findArrayIndexByItemProperty';
+import findArrayValueByItemProperty from '../../../helpers/findArrayValueByItemProperty';
 import vMealsItem from './v-meals-item';
 
 export default {
@@ -20,6 +37,8 @@ export default {
   },
 
   props: {
+    mealId: Number,
+
     ingredients: {
       type: Array,
       default() {
@@ -37,32 +56,55 @@ export default {
   computed: {
     ...mapGetters([
       'MEALS',
+      'FAVORITE_MEALS',
     ]),
   },
 
-  watch: {
-    $route: function () {
-      this.loadMeals();
-    },
-  },
-
   mounted() {
-    this.loadMeals();
+    this.getMealsFromApi();
   },
 
   methods: {
     ...mapActions([
+      'LOAD_MEALS',
       'CLEAR_MEALS',
-      'GET_RANDOM_MEAL_FROM_API',
-      'GET_MEALS_FROM_API_BY_INGREDIENTS',
+      'ADD_FAVORITE_MEAL',
+      'REMOVE_FAVORITE_MEAL',
     ]),
 
-    loadMeals() {
+    async getMealsFromApi() {
+      let meals = [];
       this.CLEAR_MEALS();
-      if (this.ingredients.length > 0) {
-        return this.GET_MEALS_FROM_API_BY_INGREDIENTS(this.ingredients);
+      if (this.mealId) {
+        meals = (await this.$api.meals.getById(this.mealId)).data;
+      } else if (this.ingredients.length > 0) {
+        meals = (await this.$api.meals.getByIngredients(this.ingredients)).data;
+      } else {
+        meals = (await this.$api.meals.getRandom()).data;
       }
-      return this.GET_RANDOM_MEAL_FROM_API();
+      this.LOAD_MEALS(meals);
+    },
+
+    isMealInFavorites(id) {
+      return undefined !== findArrayValueByItemProperty(this.FAVORITE_MEALS, id);
+    },
+
+    clickFavoriteIcon(meal) {
+      if (this.isMealInFavorites(meal.id)) {
+        this.removeFromFavorites(meal.id);
+      } else {
+        this.addToFavorites(meal);
+      }
+    },
+
+    removeFromFavorites(id) {
+      this.REMOVE_FAVORITE_MEAL(findArrayIndexByItemProperty(this.FAVORITE_MEALS, id));
+      this.$api.favorites.remove(id);
+    },
+
+    addToFavorites(meal) {
+      this.ADD_FAVORITE_MEAL(meal);
+      this.$api.favorites.add(meal.id);
     },
   },
 }
@@ -72,5 +114,18 @@ export default {
 .v-meals {
   margin: 14px 40px;
   color: #434343;
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 400px;
+  }
+
+  &__empty-alert {
+    text-align: center;
+    font-size: 24px;
+    color: $light-grey;
+  }
 }
 </style>

@@ -32,7 +32,7 @@ export default {
     gotToMealsPage() {
       this.$router.push({
         name: 'meals',
-        params: {ingredients: [ this.ingredientData.id ]},
+        params: { ingredients: [ this.ingredientData.id ] },
       })
     }
   },
@@ -44,11 +44,11 @@ export default {
   display: flex;
   align-items: center;
   height: 50px;
-  transition: all .1s linear;
+  transition: all .2s linear;
 
   &:hover {
+    border-radius: 6px;
     background-color: #e7e7e7;
-    box-shadow: 0 0 5px 0 #e7e7e7;
     cursor: pointer;
   }
 
