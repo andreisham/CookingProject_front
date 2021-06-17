@@ -16,7 +16,7 @@
           v-for="(item, index) in FAVORITE_MEALS"
           :key="item.id"
           :favoritesItemData="item"
-          @removeFavoriteItem="removeFavoriteItem(index, item.id)"
+          @removeFavoriteItem="removeFavoriteItem(item.id, index)"
       />
     </div>
 
@@ -32,7 +32,7 @@
 
 <script>
 import vFavoritesItem from './v-favorites-item';
-import { mapActions, mapGetters } from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 
 export default {
   name: "v-favorites",
@@ -49,12 +49,12 @@ export default {
 
   methods: {
     ...mapActions([
-       'REMOVE_FAVORITE_MEAL',
+      'REMOVE_FAVORITE_MEAL',
     ]),
 
-    removeFavoriteItem(index, mealId) {
-        this.REMOVE_FAVORITE_MEAL(index);
-        this.$api.favorites.remove(mealId);
+    removeFavoriteItem(mealId, index) {
+      this.$api.favorites.remove(mealId);
+      this.REMOVE_FAVORITE_MEAL(index);
     },
   },
 }

@@ -2,6 +2,7 @@
   <div
       class="v-favorites-item"
       :class="{'v-favorites-item_move-out': removed}"
+      v-touch:swipe.left="leftSwipe"
   >
 
     <div class="v-favorites-item__left">
@@ -61,6 +62,10 @@ export default {
       setTimeout(() => {
         this.$emit('removeFavoriteItem');
       }, 500)
+    },
+
+    leftSwipe() {
+      this.clickFavoriteIcon();
     },
 
     goToMealPage() {
