@@ -1,20 +1,11 @@
 <template>
   <div class="v-selector">
-    <agile
-        class="v-selector__slider v-selector__slider_open"
-        :options="options"
-    >
-      <div
-          class="slide"
-          v-for="(selector, index) in selectors"
-          :key="index"
-      >
-        <component
-            :is="selector"
-            @select="setSelectedItems"
-        />
-      </div>
-    </agile>
+    <component
+        :is="currentSelector"
+        v-touch:swipe.left="setMealsSelector"
+        v-touch:swipe.right="setIngredientsSelector"
+        @select="setSelectedItems"
+    />
 
     <button
         class="waves-effect waves-light btn v-selector__submit"
@@ -40,21 +31,20 @@ export default {
 
   data() {
     return {
-      selectors: [
-        vIngredientsSelector,
-        vMealsSelector,
-      ],
-
       selected: null,
-
-      options: {
-        dots: false,
-        navButtons: false,
-      },
+      currentSelector: vIngredientsSelector,
     }
   },
 
   methods: {
+    setMealsSelector() {
+      this.currentSelector = vMealsSelector;
+    },
+
+    setIngredientsSelector() {
+      this.currentSelector = vIngredientsSelector;
+    },
+
     setSelectedItems(items) {
       this.selected = items;
     },
@@ -71,7 +61,6 @@ export default {
 
 .v-selector {
   width: 360px;
-  height: 350px;
   overflow: hidden;
 
   .agile__list {
@@ -79,6 +68,7 @@ export default {
   }
 
   .multiselect {
+    position: absolute;
     width: 360px;
     text-align: center;
 
@@ -119,6 +109,7 @@ export default {
     }
 
     &__content-wrapper {
+      position: absolute;
       border-radius: 0 0 25px 25px;
 
       &::-webkit-scrollbar {
@@ -133,7 +124,7 @@ export default {
   }
 
   &__submit {
-    margin-top: 20px;
+    margin-top: 60px;
     color: $white;
     font-size: 24px;
     font-weight: 700;
@@ -155,6 +146,7 @@ export default {
 @media screen and (max-width: 375px) {
   .v-selector {
     max-width: 250px;
+    transition: all .5s;
 
     &__selected-items {
       max-width: 250px;

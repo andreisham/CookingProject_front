@@ -27,7 +27,6 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 14px;
 
   &__heading {
     display: flex;

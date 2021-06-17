@@ -77,7 +77,6 @@ export default {
     ]),
 
     async openSelector() {
-      this.$emit('open');
       this.isSelectorOpen = !this.isSelectorOpen;
       if (this.INGREDIENTS.length === 0) {
         let ingredients = await this.getIngredientsFromApi();
@@ -95,7 +94,7 @@ export default {
     selectIngredient(ingredient) {
       if (!this.selectedIngredients.includes(ingredient)) {
         this.selectedIngredients.push(ingredient.id);
-        this.$emit('select', {ingredients: this.selectedIngredients});
+        this.$emit('select', { ingredients: this.selectedIngredients });
       }
     },
 
@@ -118,7 +117,7 @@ export default {
 <style lang="scss">
 .v-ingredients-selector {
   &__search-result {
-    margin-left: 45px;
+    margin-left: 20px;
     margin-bottom: 5px;
     width: 100%;
     font-size: 12px;
