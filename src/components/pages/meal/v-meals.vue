@@ -2,14 +2,15 @@
   <main class="v-meals">
     <div
         class="v-meals__items"
-        v-if="MEALS.length > 0"
+        v-if="mealData"
     >
       <v-meals-item
-          v-for="meal in MEALS"
-          :key="meal.id"
-          :mealData="meal"
-          :isFavorite="isMealInFavorites(meal.id)"
+          :meal-data="mealData"
+          :is-favorite="isMealInFavorites(mealData.id)"
+          :is-arrows-active="isMealItemArrowsActive"
           @clickFavoriteIcon="clickFavoriteIcon"
+          @clickLeftArrow="showPreviousMeal"
+          @clickRightArrow="showNextMeal"
       />
     </div>
 
@@ -37,9 +38,7 @@ export default {
   },
 
   props: {
-    mealId: Number,
-
-    ingredients: {
+    mealsIdx: {
       type: Array,
       default() {
         return [];
@@ -49,7 +48,9 @@ export default {
 
   data() {
     return {
+      mealData: null,
       loading: true,
+      currentIndex: 0,
     }
   },
 
@@ -58,6 +59,10 @@ export default {
       'MEALS',
       'FAVORITE_MEALS',
     ]),
+
+    isMealItemArrowsActive() {
+      return this.mealsIdx.length > 1;
+    },
   },
 
   mounted() {
@@ -66,23 +71,54 @@ export default {
 
   methods: {
     ...mapActions([
-      'LOAD_MEALS',
+      'LOAD_MEAL',
       'CLEAR_MEALS',
       'ADD_FAVORITE_MEAL',
       'REMOVE_FAVORITE_MEAL',
     ]),
 
     async getMealsFromApi() {
-      let meals = [];
       this.CLEAR_MEALS();
-      if (this.mealId) {
-        meals = (await this.$api.meals.getById(this.mealId)).data;
-      } else if (this.ingredients.length > 0) {
-        meals = (await this.$api.meals.getByIngredients(this.ingredients)).data;
+      if (this.mealsIdx.length > 0) {
+        this.mealData = await this.getMealByIdFromApi(this.mealsIdx[this.currentIndex]);
       } else {
-        meals = (await this.$api.meals.getRandom()).data;
+        this.mealData = await this.getRandomMealFromApi();
       }
-      this.LOAD_MEALS(meals);
+
+      this.LOAD_MEAL(this.mealData);
+    },
+
+    async getRandomMealFromApi() {
+      return (await this.$api.meals.getRandom()).data[0];
+    },
+
+    async getMealByIdFromApi(id) {
+      return (await this.$api.meals.getById(id)).data;
+    },
+
+    async showPreviousMeal() {
+      if (this.currentIndex <= 0) {
+        this.currentIndex = this.mealsIdx.length;
+      }
+      let id = this.mealsIdx[--this.currentIndex];
+      await this.switchMeal(id);
+    },
+
+    async showNextMeal() {
+      if (this.currentIndex >= this.mealsIdx.length - 1) {
+        this.currentIndex = -1;
+      }
+      let id = this.mealsIdx[++this.currentIndex];
+      await this.switchMeal(id);
+    },
+
+    async switchMeal(id) {
+      let meal = this.MEALS.find(m => m.id === id);
+      if (!meal) {
+        meal = (await this.$api.meals.getById(id)).data;
+        this.LOAD_MEAL(meal);
+      }
+      this.mealData = meal;
     },
 
     isMealInFavorites(id) {

@@ -1,6 +1,29 @@
 <template>
   <div class="v-meals-item">
-    <h2 class="v-meals-item__header">{{ mealData.name | ucfirst }}</h2>
+    <div
+        class="v-meals-item__header"
+        :class="{'v-meals-item__header_center': !isArrowsActive}"
+    >
+      <div
+          class="v-meals-item__arrow"
+          @click="clickLeftArrow"
+          v-if="isArrowsActive"
+      >
+        <i class="material-icons v-meals-item__previous">keyboard_arrow_left</i>
+      </div>
+
+      <div class="v-meals-item__heading">
+        <h3 class="v-meals-item__h3">{{ mealData.name | ucfirst }}</h3>
+      </div>
+
+      <div
+          class="v-meals-item__arrow"
+          @click="clickRightArrow"
+          v-if="isArrowsActive"
+      >
+        <i class="material-icons v-meals-item__next">keyboard_arrow_right</i>
+      </div>
+    </div>
 
     <div class="v-meals-item__box">
 
@@ -33,7 +56,7 @@
     <h3 class="v-meals-item__ingredients-title">Ингредиенты:</h3>
     <ul class="v-meals-item__ingredients">
       <li class="v-meals-item__ingredient"
-          v-for="(item, index) in mealData.components_measure"
+          v-for="(item, index) in JSON.parse(mealData.components_measure)"
           :key="index"
       >
         <img
@@ -53,7 +76,6 @@
 
 <script>
 import ucfirst from "../../../filters/ucfirst";
-import handleJsonResponseValue from '../../../helpers/handleJsonResponseValue';
 import vFavoriteIcon from '../../elements/v-favorite-icon';
 
 export default {
@@ -64,6 +86,13 @@ export default {
   },
 
   props: {
+    isArrowsActive: {
+      type: Boolean,
+      default() {
+        return false;
+      }
+    },
+
     isFavorite: {
       type: Boolean,
       default() {
@@ -83,17 +112,21 @@ export default {
     ucfirst,
   },
 
-  mounted() {
-    this.$set(this.mealData, 'components_measure', handleJsonResponseValue(this.mealData.components_measure));
-  },
-
   methods: {
     showComponentMeasure(component, measure) {
-      return component + (measure.length > 0 ? (' - ' + measure) : '');
+      return component + (measure.length > 0 ? ` - ${measure}` : '');
     },
 
     clickFavoriteIcon() {
       this.$emit('clickFavoriteIcon', this.mealData);
+    },
+
+    clickLeftArrow() {
+      this.$emit('clickLeftArrow', this.mealData.id);
+    },
+
+    clickRightArrow() {
+      this.$emit('clickRightArrow', this.mealData.id);
     },
   },
 }
@@ -104,8 +137,48 @@ export default {
   margin-bottom: 30px;
 
   &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 35px;
     margin-bottom: 35px;
+
+    &_center {
+      justify-content: center;
+    }
+  }
+
+  &__heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  &__arrow {
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & i {
+      font-size: 45px;
+      color: $grey-lighten-1;
+      transition: all 0.3s;
+    }
+
+    &:active i {
+      transform: scale(0.8);
+      color: $grey-darken-2;
+    }
+  }
+
+  &__previous {
+
+  }
+
+  &__next {
+
   }
 
   &__box {
@@ -116,8 +189,9 @@ export default {
   }
 
   &__img {
-    width: 300px;
+    width: 295px;
     margin-bottom: 30px;
+    border-radius: 10px;
   }
 
   &__right {

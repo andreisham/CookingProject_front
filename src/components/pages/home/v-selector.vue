@@ -5,12 +5,6 @@
         @select="setSelectedItems"
     />
 
-    <v-switcher
-        class="v-selector__switcher"
-        title="search for meals"
-        @switch="switchSelector"
-    />
-
     <button
         class="waves-effect waves-light btn v-selector__submit"
         type="submit"
@@ -18,6 +12,12 @@
     >
       show
     </button>
+
+    <v-switcher
+        class="v-selector__switcher"
+        title="search for meals"
+        @switch="switchSelector"
+    />
   </div>
 </template>
 
@@ -37,7 +37,7 @@ export default {
 
   data() {
     return {
-      selected: null,
+      selected: [],
       currentSelector: vIngredientsSelector,
     }
   },
@@ -54,7 +54,11 @@ export default {
     },
 
     showMeals() {
-      this.$router.push({name: 'meals', params: this.selected});
+      let mealsIdx = [];
+      if (this.selected.length > 0) {
+        mealsIdx = this.selected.map(i => i.meal_id);
+      }
+      this.$router.push({name: 'meals', params: { mealsIdx }});
     }
   }
 }
@@ -128,12 +132,12 @@ export default {
   }
 
   &__switcher {
-    margin-top: 60px;
+    margin-top: 20px;
     margin-right: 15px;
   }
 
   &__submit {
-    margin-top: 25px;
+    margin-top: 60px;
     color: $white;
     font-size: 24px;
     font-weight: 700;

@@ -4,7 +4,7 @@
         class="v-ingredients-selector__search-result"
         v-if="selectedIngredients.length > 0"
     >
-      Found {{ recipesCount }} recipes
+      Found {{  mealsIdx.length }} recipes
     </div>
 
     <multiselect
@@ -43,9 +43,9 @@ export default {
     return {
       value: [],
       selectedIngredients: [],
+      mealsIdx: [],
       isSelectorOpen: false,
       isLoading: false,
-      recipesCount: 0,
     }
   },
 
@@ -64,10 +64,8 @@ export default {
       this.sortedIngredients = this.inputData.length !== 0 ? this.sortedIngredients : [];
     },
 
-    selectedIngredients() {
-      if (this.selectedIngredients.length > 0) {
-        this.getRecipesCount(this.selectedIngredients);
-      }
+    mealsIdx() {
+      this.$emit('select', this.mealsIdx);
     }
   },
 
@@ -91,24 +89,27 @@ export default {
       return ingredients;
     },
 
-    selectIngredient(ingredient) {
+    async selectIngredient(ingredient) {
       if (!this.selectedIngredients.includes(ingredient)) {
         this.selectedIngredients.push(ingredient.id);
-        this.$emit('select', { ingredients: this.selectedIngredients });
+        this.mealsIdx = await this.getMealsIdxFromApi(this.selectedIngredients);
       }
+    },
+
+    async removeIngredient(ingredient) {
+      let index = this.selectedIngredients.findIndex(item => item === ingredient.id);
+      this.selectedIngredients.splice(index, 1);
+      this.mealsIdx = this.selectedIngredients.length > 0
+          ? await this.getMealsIdxFromApi(this.selectedIngredients)
+          : [];
+    },
+
+    async getMealsIdxFromApi(ingredients) {
+      return await (await this.$api.meals.getByIngredients(ingredients)).data;
     },
 
     closeSelector() {
       this.isSelectorOpen = !this.isSelectorOpen;
-    },
-
-    async getRecipesCount(ingredients) {
-      this.recipesCount = (await this.$api.meals.getCountByIngredients(ingredients)).data.count;
-    },
-
-    removeIngredient(ingredient) {
-      let index = this.selectedIngredients.findIndex(item => item === ingredient.id);
-      this.selectedIngredients.splice(index, 1);
     },
   },
 }

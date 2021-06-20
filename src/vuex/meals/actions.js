@@ -1,9 +1,6 @@
 export default {
-    LOAD_MEALS({ commit }, meals) {
-        if (!Array.isArray(meals)) {
-            meals = [ meals ];
-        }
-        commit('SET_MEALS_TO_STATE', meals);
+    LOAD_MEAL({ commit }, meal) {
+        commit('SET_MEALS_TO_STATE', meal);
     },
 
     LOAD_MEALS_NAMES_LIST({ commit }, list) {
