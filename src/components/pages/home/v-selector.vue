@@ -2,9 +2,13 @@
   <div class="v-selector">
     <component
         :is="currentSelector"
-        v-touch:swipe.left="setMealsSelector"
-        v-touch:swipe.right="setIngredientsSelector"
         @select="setSelectedItems"
+    />
+
+    <v-switcher
+        class="v-selector__switcher"
+        title="search for meals"
+        @switch="switchSelector"
     />
 
     <button
@@ -20,6 +24,7 @@
 <script>
 import vIngredientsSelector from "./v-ingredients-selector";
 import vMealsSelector from "./v-meals-selector";
+import vSwitcher from '../../elements/v-switcher';
 
 export default {
   name: "v-selector",
@@ -27,6 +32,7 @@ export default {
   components: {
     vIngredientsSelector,
     vMealsSelector,
+    vSwitcher,
   },
 
   data() {
@@ -37,12 +43,10 @@ export default {
   },
 
   methods: {
-    setMealsSelector() {
-      this.currentSelector = vMealsSelector;
-    },
-
-    setIngredientsSelector() {
-      this.currentSelector = vIngredientsSelector;
+    switchSelector() {
+      this.currentSelector = (this.currentSelector === vIngredientsSelector)
+          ? vMealsSelector
+          : vIngredientsSelector;
     },
 
     setSelectedItems(items) {
@@ -50,7 +54,7 @@ export default {
     },
 
     showMeals() {
-      this.$router.push({ name: 'meals', params: this.selected });
+      this.$router.push({name: 'meals', params: this.selected});
     }
   }
 }
@@ -123,8 +127,13 @@ export default {
     }
   }
 
-  &__submit {
+  &__switcher {
     margin-top: 60px;
+    margin-right: 15px;
+  }
+
+  &__submit {
+    margin-top: 25px;
     color: $white;
     font-size: 24px;
     font-weight: 700;
