@@ -2,8 +2,6 @@
   <div class="v-selector">
     <component
         :is="currentSelector"
-        v-touch:swipe.left="setMealsSelector"
-        v-touch:swipe.right="setIngredientsSelector"
         @select="setSelectedItems"
     />
 
@@ -14,12 +12,19 @@
     >
       show
     </button>
+
+    <v-switcher
+        class="v-selector__switcher"
+        title="search for meals"
+        @switch="switchSelector"
+    />
   </div>
 </template>
 
 <script>
 import vIngredientsSelector from "./v-ingredients-selector";
 import vMealsSelector from "./v-meals-selector";
+import vSwitcher from '../../elements/v-switcher';
 
 export default {
   name: "v-selector",
@@ -27,22 +32,21 @@ export default {
   components: {
     vIngredientsSelector,
     vMealsSelector,
+    vSwitcher,
   },
 
   data() {
     return {
-      selected: null,
+      selected: [],
       currentSelector: vIngredientsSelector,
     }
   },
 
   methods: {
-    setMealsSelector() {
-      this.currentSelector = vMealsSelector;
-    },
-
-    setIngredientsSelector() {
-      this.currentSelector = vIngredientsSelector;
+    switchSelector() {
+      this.currentSelector = (this.currentSelector === vIngredientsSelector)
+          ? vMealsSelector
+          : vIngredientsSelector;
     },
 
     setSelectedItems(items) {
@@ -50,7 +54,11 @@ export default {
     },
 
     showMeals() {
-      this.$router.push({ name: 'meals', params: this.selected });
+      let mealsIdx = [];
+      if (this.selected.length > 0) {
+        mealsIdx = this.selected.map(i => i.meal_id);
+      }
+      this.$router.push({name: 'meals', params: { mealsIdx }});
     }
   }
 }
@@ -121,6 +129,11 @@ export default {
     &__option {
       white-space: pre-wrap;
     }
+  }
+
+  &__switcher {
+    margin-top: 20px;
+    margin-right: 15px;
   }
 
   &__submit {

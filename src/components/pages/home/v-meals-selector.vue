@@ -70,7 +70,7 @@ export default {
 
     selectMeal(meal) {
       this.value = meal;
-      this.$emit('select', { mealId: this.value.id ?? null });
+      this.$emit('select', [{ meal_id: this.value.id }]);
     },
 
     closeSelector() {
